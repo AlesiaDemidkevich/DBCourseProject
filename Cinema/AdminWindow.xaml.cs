@@ -23,5 +23,12 @@ namespace Cinema.Admin
         {
             InitializeComponent();
         }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Authorization autorization = new Authorization();            
+            autorization.Show();
+            this.Close();
+        }
     }
 }
