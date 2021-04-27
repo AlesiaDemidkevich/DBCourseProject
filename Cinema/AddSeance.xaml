@@ -1,0 +1,23 @@
+﻿<Window x:Class="Cinema.AddSeance"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cinema"
+        mc:Ignorable="d"
+        Title="Добавить сеанс" Height="600" Width="500"  WindowStartupLocation="CenterScreen" FontSize="16" ResizeMode="CanMinimize">
+    <Grid>
+        <Rectangle Fill="#2b2728" HorizontalAlignment="Left" RadiusX="15" RadiusY="15" Height="542" Margin="19,18,0,0" VerticalAlignment="Top" Width="456" Opacity="0.5"/>
+        <Label Content="Дата" HorizontalAlignment="Left" Margin="93,92,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <TextBox x:Name="seanceTime" HorizontalAlignment="Left" Height="28" Margin="171,134,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
+        <TextBox x:Name="seanceFilm" HorizontalAlignment="Left" Height="28" Margin="171,210,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
+        <Label Content="Время" HorizontalAlignment="Left" Margin="79,129,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" RenderTransformOrigin="0.647,0.519"/>
+        <Label Content="Зал" HorizontalAlignment="Left" Margin="101,167,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Фильм" HorizontalAlignment="Left" Margin="74,203,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Информация о сеансе" HorizontalAlignment="Left" Margin="162,29,0,0" VerticalAlignment="Top" Height="36" FontSize="20" FontWeight="SemiBold" Foreground="White"/>
+        <Button x:Name="seanceAddButton" Content="Добавить" HorizontalAlignment="Left" Margin="263,464,0,0" FontSize="20" VerticalAlignment="Top" Width="142" Height="60"  Padding="0,0,0,5" />
+        <ComboBox  x:Name="seanceHall" HorizontalAlignment="Left" Margin="171,171,0,0" VerticalAlignment="Top" Width="205"/>
+        <DatePicker x:Name="seanceDate" HorizontalAlignment="Left" Margin="171,92,0,0" VerticalAlignment="Top" Width="205"/>
+
+    </Grid>
+</Window>

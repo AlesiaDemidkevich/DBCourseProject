@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema.Admin"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="650" Width="1000" Background="#2b2728" WindowStartupLocation="CenterScreen" FontSize="16"  ResizeMode="CanMinimize">
+        Title="Окно администратора" Height="650" Width="1000" Background="#2b2728" WindowStartupLocation="CenterScreen" FontSize="16"  ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100*"/>
@@ -33,12 +33,11 @@
                             </Rectangle>
                             <DataGrid x:Name="employeeTable" RowBackground="Transparent" Margin="12,148,9.8,51" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" Grid.ColumnSpan="2">
                                 <DataGrid.Columns >
-                                    <DataGridTextColumn x:Name="employeeSurname" Header="Фамилия" Binding="{Binding Path=Date}" Width="100" />
-                                    <DataGridTextColumn x:Name="employeeName" Header="Имя" Binding="{Binding Path=Product}" Width="100" />
-                                    <DataGridTextColumn x:Name="employeeSecondName" Header="Отчество" Binding="{Binding Path=Weight}" Width="110" />
+                                    <DataGridTextColumn x:Name="employeeSurname" Header="ФИО" Binding="{Binding Path=Date}" Width="190" />                                    
                                     <DataGridTextColumn x:Name="employeeBirthday" Header="Дата рождения" Binding="{Binding Path=Protein}" Width="130" />
                                     <DataGridTextColumn x:Name="employeeStartDay" Header="Дата зачисления" Binding="{Binding Path=Fat}" Width="130" />
                                     <DataGridTextColumn x:Name="employeePhoneNumber" Header="Телефон" Binding="{Binding Path=Carbohydrate}" Width="110" />
+                                    <DataGridTextColumn x:Name="employeePost" Header="Должность" Binding="{Binding Path=Carbohydrate}" Width="110" />
                                     <DataGridTextColumn x:Name="employeeSalary" Header="Зарплата" Binding="{Binding Path=Kkal}" IsReadOnly="False" Width="80"/>
                                 </DataGrid.Columns>
                                 <DataGrid.Resources>
@@ -60,7 +59,7 @@
                                     </LinearGradientBrush>
                                 </DataGrid.Background>
                             </DataGrid>
-                            <Button x:Name="addEmployeeButton" Content="Добавить сотрудника" HorizontalAlignment="Left" Margin="58,47,0,0" VerticalAlignment="Top" Width="171" Height="42"/>
+                            <Button x:Name="addEmployeeButton" Content="Добавить сотрудника" HorizontalAlignment="Left" Margin="58,47,0,0" VerticalAlignment="Top" Width="171" Height="42" Click="addEmployeeButton_Click"/>
                             <Button x:Name="deleteEmployeeButton" Content="Удалить сотрудника" HorizontalAlignment="Left" Margin="298,47,0,0" VerticalAlignment="Top" Width="171" Height="42" Grid.ColumnSpan="2"/>
                             <Button x:Name="printEmployeeButton" Content="Вывести список сотрудников" HorizontalAlignment="Left" Margin="131.6,47,0,0" VerticalAlignment="Top" Width="223" Height="42" Grid.Column="1"/>
                         </Grid>
@@ -87,7 +86,7 @@
                             </Rectangle>
                             <DatePicker x:Name="seancceDateChoose" HorizontalAlignment="Left" Margin="36,31,0,0" Focusable="False" VerticalAlignment="Top" Width="125" Background="#2b2728" BorderBrush="#2b2728" SelectedDateFormat="Short"/>
                             <ComboBox x:Name="allSeanceTime" HorizontalAlignment="Left" Margin="36,116,0,0" VerticalAlignment="Top" Width="147" IsEditable="True" Height="30" FontSize="18" />
-                            <Button x:Name="updateSeanceList" Content="Обновить" HorizontalAlignment="Left" Margin="462,116,0,0" VerticalAlignment="Top" Width="95" Height="30"  Padding="0,0,0,5" RenderTransformOrigin="-1.662,0.707"/>
+                            <Button x:Name="updateSeanceList" Content="Добавить" HorizontalAlignment="Left" Margin="462,116,0,0" VerticalAlignment="Top" Width="95" Height="30"  Padding="0,0,0,5" RenderTransformOrigin="-1.662,0.707" Click="updateSeanceList_Click"/>
                             <Label Content="Сеанс" HorizontalAlignment="Left" Margin="36,77,0,0" VerticalAlignment="Top" FontWeight="SemiBold" Foreground="White" FontSize="18"/>
                             <Button x:Name="deleteSeanceItem" Content="Удалить" HorizontalAlignment="Left" Margin="622,116,0,0" VerticalAlignment="Top" Width="95" Height="30" Padding="0,0,0,5" />
                             <ComboBox x:Name="allSeanceHall" HorizontalAlignment="Left" Margin="203,115,0,0" VerticalAlignment="Top" Width="95" IsEditable="True" Height="30" FontSize="18"/>
@@ -119,7 +118,7 @@
                                     </LinearGradientBrush>
                                 </DataGrid.Background>
                             </DataGrid>
-                            <Label Content="Обновить список" Foreground="White" HorizontalAlignment="Left" Margin="437,77,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Добавить сеанс" Foreground="White" HorizontalAlignment="Left" Margin="447,79,0,0" VerticalAlignment="Top"/>
                             <Label Content="Удалить из списка" Foreground="White" HorizontalAlignment="Left" Margin="597,79,0,0" VerticalAlignment="Top"/>
                         </Grid>
                     </StackPanel>
@@ -185,7 +184,7 @@
                             <Label Content="По" HorizontalAlignment="Left" Margin="290,24,0,0" VerticalAlignment="Top" Width="30" FontWeight="SemiBold" Foreground="White" Height="30" Grid.RowSpan="2"/>
                             <Label Content="Период:" HorizontalAlignment="Left" Margin="28,22,0,0" VerticalAlignment="Top" Width="72" FontWeight="SemiBold" Foreground="White" Height="30" Grid.RowSpan="2"/>
                             <Button Content="Посмотреть информацию" HorizontalAlignment="Left" Margin="48,95.2,0,0" Grid.Row="2" VerticalAlignment="Top" Width="205" Height="40"/>
-                            <Button Content="Добавить фильм" HorizontalAlignment="Left" Margin="316,95.2,0,0" Grid.Row="2" VerticalAlignment="Top" Width="165" Height="40"/>
+                            <Button Content="Добавить фильм" HorizontalAlignment="Left" Margin="316,95.2,0,0" Grid.Row="2" VerticalAlignment="Top" Width="165" Height="40" Click="Button_Click"/>
                             <Button Content="Удалить фильм" HorizontalAlignment="Left" Margin="560,95.2,0,0" Grid.Row="2" VerticalAlignment="Top" Width="165" Height="40"/>
                         </Grid>
                     </StackPanel>

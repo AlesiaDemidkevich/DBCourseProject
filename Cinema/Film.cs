@@ -13,8 +13,8 @@ namespace Cinema
         public string year { get; set; }
         public string duration { get; set; }
         public string ageLimit { get; set; }
-        public string startreleaseDate { get; set; }
-        public string endreleaseDate { get; set; }
+        public DateTime startreleaseDate { get; set; }
+        public DateTime endreleaseDate { get; set; }
         public string description { get; set; }
 
     }

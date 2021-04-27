@@ -23,7 +23,7 @@ namespace Cinema
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    
+
     public partial class Authorization : Window
     {
         public OracleConnection oracleConnection;
@@ -42,7 +42,7 @@ namespace Cinema
                 using (OracleConnection oracleConnection = new OracleConnection(OracleDatabaseConnection.connection))
                 {
                     oracleConnection.Open();
-               
+
                     OracleParameter login = new OracleParameter
                     {
                         ParameterName = "in_login",
@@ -74,10 +74,10 @@ namespace Cinema
                         dt.Load(reader);
 
                         foreach (DataRow row in dt.Rows)
-                        {                            
+                        {
                             currentEmployee.login = row["Login"].ToString();
                             currentEmployee.password = row["Password"].ToString();
-                            currentEmployee.IDEmployee = row["IDEmployee"].ToString();
+                            currentEmployee.IDEmployee = Convert.ToInt32(row["IDEmployee"]);
                         }
                     }
 
@@ -85,9 +85,15 @@ namespace Cinema
                     currUserPos = loginText.Text;
                     if (currUserPos == currentEmployee.login)
                     {
-                        AdminWindow adminWindow = new AdminWindow();
+                        AdminWindow adminWindow = new AdminWindow(currentEmployee.IDEmployee);
                         adminWindow.Show();
                         this.Close();
+                    }
+                    else {
+                        MessageBox.Show("Пользователя не существует");
+                        loginText.Text = "";
+                        passwordText.Password = "";
+                        passwordText2.Text = "";
                     }
                 }
             }
@@ -95,7 +101,24 @@ namespace Cinema
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
+        }
+
+        private void showPassword_Click(object sender, RoutedEventArgs e)
+        {
+            var showPassword = sender as CheckBox;
+            if (showPassword.IsChecked.Value)
+            {
+                passwordText2.Text = passwordText.Password;
+                passwordText2.Visibility = Visibility.Visible;
+                passwordText.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                passwordText.Password = passwordText2.Text;
+                passwordText2.Visibility = Visibility.Hidden;
+                passwordText.Visibility = Visibility.Visible;
+            }
         }
     }
 }

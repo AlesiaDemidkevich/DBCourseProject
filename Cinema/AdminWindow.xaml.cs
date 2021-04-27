@@ -19,9 +19,17 @@ namespace Cinema.Admin
     /// </summary>
     public partial class AdminWindow : Window
     {
+        int userID;
         public AdminWindow()
         {
             InitializeComponent();
+        }
+
+        public AdminWindow(int ID)
+        {
+            InitializeComponent();
+            userID = ID;
+
         }
 
         private void Exit(object sender, RoutedEventArgs e)
@@ -29,6 +37,24 @@ namespace Cinema.Admin
             Authorization autorization = new Authorization();            
             autorization.Show();
             this.Close();
+        }
+
+        private void addEmployeeButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddEmployee addEmployee = new AddEmployee();
+            addEmployee.Show();
+        }
+
+        private void updateSeanceList_Click(object sender, RoutedEventArgs e)
+        {
+            AddSeance addSeance = new AddSeance();
+            addSeance.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AddFilm addFilm = new AddFilm();
+            addFilm.Show();
         }
     }
 }
