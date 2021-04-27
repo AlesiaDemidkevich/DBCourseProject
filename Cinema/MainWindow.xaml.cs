@@ -27,7 +27,7 @@ namespace Cinema
     public partial class MainWindow : Window
     {
         public OracleConnection oracleConnection;
-        public CurrentEmployee currentEmployee;
+        public Employee currentEmployee;
         public string currUserPos = "Администратор";
         public MainWindow()
         {
@@ -36,7 +36,7 @@ namespace Cinema
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-            currentEmployee = new CurrentEmployee();
+            currentEmployee = new Employee();
             try
             {
                 using (OracleConnection oracleConnection = new OracleConnection(OracleDatabaseConnection.connection))

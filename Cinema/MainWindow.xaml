@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Title="MainWindow" Height="891.2" Width="800">
+        Title="MainWindow" Height="600" Width="450">
     <Grid>
-        <Button Content="Войти" x:Name="loginButton" HorizontalAlignment="Left" Margin="346,595,0,0" VerticalAlignment="Top" Width="190" FontSize="24" Click="loginButton_Click" Height="62"/>
-        <Label Content="Авторизация" HorizontalAlignment="Left" Margin="328,66,0,0" VerticalAlignment="Top" FontSize="36" Height="74" Width="269"/>
-        <Label Content="Логин" HorizontalAlignment="Left" Margin="371,192,0,0" VerticalAlignment="Top" FontSize="36"/>
-        <Label Content="Пароль" HorizontalAlignment="Left" Margin="371,346,0,0" VerticalAlignment="Top" FontSize="36"/>
-        <TextBox  x:Name="loginText" HorizontalAlignment="Left" Height="66" Margin="244,275,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="372"/>
-        <PasswordBox x:Name="passwordText" HorizontalAlignment="Left" Margin="244,457,0,0" VerticalAlignment="Top" Height="73" Width="372"/>
+        <Button Content="Войти" x:Name="loginButton" HorizontalAlignment="Left" Margin="129,465,0,0" VerticalAlignment="Top" Width="190" FontSize="24" Click="loginButton_Click" Height="62"/>
+        <Label Content="Авторизация" HorizontalAlignment="Left" Margin="107,52,0,0" VerticalAlignment="Top" FontSize="36" Height="74" Width="224"/>
+        <Label Content="Логин" HorizontalAlignment="Left" Margin="163,135,0,0" VerticalAlignment="Top" FontSize="36"/>
+        <Label Content="Пароль" HorizontalAlignment="Left" Margin="156,302,0,0" VerticalAlignment="Top" FontSize="36"/>
+        <TextBox  x:Name="loginText" HorizontalAlignment="Left" Height="45" FontSize="24" Margin="67,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="300"/>
+        <PasswordBox x:Name="passwordText" HorizontalAlignment="Left" Margin="67,379,0,0" FontSize="24" VerticalAlignment="Top" Height="45" Width="300"/>
 
     </Grid>
 </Window>
