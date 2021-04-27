@@ -5,9 +5,198 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema.Admin"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="800">
+        Title="AdminWindow" Activated="Window_Activated" Height="650" Width="1000" Background="#2b2728" WindowStartupLocation="CenterScreen" FontSize="16"  ResizeMode="CanMinimize">
     <Grid>
-        <Label Content="Yes, I'm admin!" HorizontalAlignment="Left" Margin="296,107,0,0" VerticalAlignment="Top" FontSize="36"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="300*"/>
+        </Grid.ColumnDefinitions>
+
+        <TabControl Grid.ColumnSpan="2"  x:Name="products" TabStripPlacement="Left" Margin="10,50,15,15" >
+            <TabItem x:Name="Employee" Margin="0,-2,-0.2,-2.4">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Width="165">
+                        <TextBlock Margin="10,15,80,15" Height="28" Width="95"><Run Text="Сотрудники"/></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <StackPanel.Background>
+                            <ImageBrush ImageSource="Images/granat.png"></ImageBrush>
+                        </StackPanel.Background>
+                        <Grid Height="580" Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="400*"/>
+                                <ColumnDefinition Width="400*"/>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle Fill="#500001" HorizontalAlignment="Left" RadiusX="10" RadiusY="10" Height="109" Margin="12,18,0,0" VerticalAlignment="Top" Width="759"  Grid.Row="0" Grid.ColumnSpan="2">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" BlurRadius="25" Opacity="0.2"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <DataGrid x:Name="PriemP" RowBackground="Transparent" Margin="12,148,9.8,51" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" Grid.ColumnSpan="2">
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn x:Name="P_date" Header="Фамилия" Binding="{Binding Path=Date}" Width="100" />
+                                    <DataGridTextColumn x:Name="P_product" Header="Имя" Binding="{Binding Path=Product}" Width="100" />
+                                    <DataGridTextColumn x:Name="P_weight" Header="Отчество" Binding="{Binding Path=Weight}" Width="110" />
+                                    <DataGridTextColumn x:Name="P_protein" Header="Дата рождения" Binding="{Binding Path=Protein}" Width="130" />
+                                    <DataGridTextColumn x:Name="P_fat" Header="Дата зачисления" Binding="{Binding Path=Fat}" Width="130" />
+                                    <DataGridTextColumn x:Name="P_carbohydrate" Header="Телефон" Binding="{Binding Path=Carbohydrate}" Width="110" />
+                                    <DataGridTextColumn x:Name="P_kkal" Header="Зарплата" Binding="{Binding Path=Kkal}" IsReadOnly="False" Width="80"/>
+                                </DataGrid.Columns>
+                                <DataGrid.Resources>
+                                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#2b2728" />
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="1 1 1 1"/>
+                                        <Setter Property="Margin" Value="-1,-1,0,0" />
+                                        <Setter Property="Height" Value="28" />
+                                        <Setter Property="Width" Value="auto"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#ffffff" Offset="0"/>
+                                        <GradientStop Color="#dbdbdb" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </DataGrid.Background>
+                            </DataGrid>
+                            <Button Content="Добавить сотрудника" HorizontalAlignment="Left" Margin="58,47,0,0" VerticalAlignment="Top" Width="171" Height="42"/>
+                            <Button Content="Удалить сотрудника" HorizontalAlignment="Left" Margin="298,47,0,0" VerticalAlignment="Top" Width="171" Height="42" Grid.ColumnSpan="2"/>
+                            <Button Content="Вывести список сотрудников" HorizontalAlignment="Left" Margin="131.6,47,0,0" VerticalAlignment="Top" Width="223" Height="42" Grid.Column="1"/>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="PriemTab" Margin="0,-3.2,-0.6,-0.6">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Width="169">
+                        <TextBlock Margin="10,15,80,15">Сеансы</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <Grid Height="550" Margin="0,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200*"/>
+                                <RowDefinition Height="400*"/>
+                            </Grid.RowDefinitions>
+                            <Rectangle Fill="#500001" HorizontalAlignment="Left" RadiusX="10" RadiusY="10" Height="163" Margin="18,10,0,0" VerticalAlignment="Top" Width="728"  Grid.Row="0">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" BlurRadius="25" Opacity="0.2"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <DatePicker x:Name="Date" HorizontalAlignment="Left" Margin="70,29,0,0" Focusable="False" VerticalAlignment="Top" Width="125" Background="#2b2728" BorderBrush="#2b2728" SelectedDateFormat="Short"/>
+                            <ComboBox x:Name="AllProduct" HorizontalAlignment="Left" Margin="36,116,0,0" VerticalAlignment="Top" Width="196" IsEditable="True" Height="30" FontSize="18" KeyDown="AllProduct_KeyDown"/>
+                            <TextBox x:Name="AllWeight" HorizontalAlignment="Left" Height="30" Margin="254,116,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="80" FontSize="18" LostFocus="AllWeight_LostFocus" GotFocus="AllWeight_GotFocus"/>
+                            <Button Content="Добавить" HorizontalAlignment="Left" Margin="355,116,0,0" VerticalAlignment="Top" Width="95" Height="30" Template="{StaticResource ButtonTemplate}" Padding="0,0,0,5" Click="Add_Priem" RenderTransformOrigin="-1.662,0.707"/>
+                            <Label Content="Продукт" HorizontalAlignment="Left" Margin="36,77,0,0" VerticalAlignment="Top" FontWeight="SemiBold" Foreground="White" FontSize="18"/>
+                            <Label Content="Вес" HorizontalAlignment="Left" Margin="254,77,0,0" VerticalAlignment="Top"  FontWeight="SemiBold" Foreground="White" FontSize="18"/>
+
+                            <DataGrid x:Name="PriemP" RowBackground="Transparent" Margin="18,9.8,25,16.4" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn x:Name="P_date" Header="Дата" Binding="{Binding Path=Date}" Width="130" />
+                                    <DataGridTextColumn x:Name="P_product" Header="Продукт" Binding="{Binding Path=Product}" Width="170" />
+                                    <DataGridTextColumn x:Name="P_weight" Header="Вес" Binding="{Binding Path=Weight}" Width="80" />
+                                    <DataGridTextColumn x:Name="P_protein" Header="Белки" Binding="{Binding Path=Protein}" Width="80" />
+                                    <DataGridTextColumn x:Name="P_fat" Header="Жиры" Binding="{Binding Path=Fat}" Width="80" />
+                                    <DataGridTextColumn x:Name="P_carbohydrate" Header="Углеводы" Binding="{Binding Path=Carbohydrate}" Width="90" />
+                                    <DataGridTextColumn x:Name="P_kkal" Header="Ккал" Binding="{Binding Path=Kkal}" IsReadOnly="False" Width="80"/>
+                                </DataGrid.Columns>
+                                <DataGrid.Resources>
+                                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#2b2728" />
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="1 1 1 1"/>
+                                        <Setter Property="Margin" Value="-1,-1,0,0" />
+                                        <Setter Property="Height" Value="28" />
+                                        <Setter Property="Width" Value="auto"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#ffffff" Offset="0"/>
+                                        <GradientStop Color="#dbdbdb" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </DataGrid.Background>
+                            </DataGrid>
+                            <Button Content="Удалить" HorizontalAlignment="Left" Margin="464,116,0,0" VerticalAlignment="Top" Width="95" Height="30" Template="{StaticResource ButtonTemplate}" Padding="0,0,0,5" Click="Delete_Priem"/>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="Statistic" Margin="0,-1.8,-0.2,-2">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Width="165">
+                        <TextBlock Margin="10,15,80,15">Прокат фильмов</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <Grid Height="580" Margin="0,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="316.8"/>
+                                <RowDefinition Height="223*"/>
+                            </Grid.RowDefinitions>
+                            <Rectangle Fill="#500001" HorizontalAlignment="Left" RadiusX="10" RadiusY="10" Height="58" Margin="18,10,0,0" VerticalAlignment="Top" Width="735" Opacity="1" Grid.RowSpan="2">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" BlurRadius="25" Opacity="0.2"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <DataGrid x:Name="Priem" RowBackground="Transparent" Grid.Row="1" Margin="18,33,20,0.8" IsReadOnly="True" AutoGenerateColumns="False" HeadersVisibility="Column" >
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn x:Name="date" Header="Дата" Binding="{Binding Path=Date}" Width="110" />
+                                    <DataGridTextColumn x:Name="product" Header="Продукт" Binding="{Binding Path=Product}" Width="180" />
+                                    <DataGridTextColumn x:Name="weight" Header="Вес" Binding="{Binding Path=Weight}" Width="80" />
+                                    <DataGridTextColumn x:Name="protein" Header="Белки" Binding="{Binding Path=Protein}" Width="80" />
+                                    <DataGridTextColumn x:Name="fat" Header="Жиры" Binding="{Binding Path=Fat}" Width="80" />
+                                    <DataGridTextColumn x:Name="carbohydrate" Header="Углеводы" Binding="{Binding Path=Carbohydrate}" Width="100" />
+                                    <DataGridTextColumn x:Name="kkal" Header="Ккал" Binding="{Binding Path=Kkal}" IsReadOnly="False" Width="83"/>
+                                </DataGrid.Columns>
+                                <DataGrid.Resources>
+                                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#2b2728" />
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="1 1 1 1"/>
+                                        <Setter Property="Margin" Value="-1,-1,0,0" />
+                                        <Setter Property="Height" Value="28" />
+                                        <Setter Property="Width" Value="auto"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#ffffff" Offset="0"/>
+                                        <GradientStop Color="#dbdbdb" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </DataGrid.Background>
+                            </DataGrid>
+                            <Rectangle Fill="#500001" HorizontalAlignment="Left" RadiusX="15" RadiusY="15" Height="169" Margin="18,10.2,0,0" VerticalAlignment="Top" Width="735"  Grid.Row="2">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" BlurRadius="25" Opacity="0.2"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <DatePicker x:Name="Start" HorizontalAlignment="Left" Focusable="False" Margin="149,24,0,0" VerticalAlignment="Top" Width="125"  SelectedDateFormat="Short" Grid.RowSpan="2"/>
+                            <DatePicker x:Name="End" HorizontalAlignment="Left" Focusable="False" Margin="330,24,0,0" VerticalAlignment="Top" Width="125"  SelectedDateFormat="Short" Grid.RowSpan="2"/>
+                            <Button Content="Показать" HorizontalAlignment="Left" Margin="481,24,0,0" VerticalAlignment="Top" Width="92" Height="30" Template="{StaticResource ButtonTemplate}" Padding="0,0,0,5" Click="Show_Statistic" Grid.RowSpan="2"/>
+                            <Label Content="С" HorizontalAlignment="Left" Margin="122,24,0,0" VerticalAlignment="Top" Width="22" FontWeight="SemiBold" Foreground="White" Height="30" Grid.RowSpan="2"/>
+                            <Label Content="По" HorizontalAlignment="Left" Margin="290,24,0,0" VerticalAlignment="Top" Width="30" FontWeight="SemiBold" Foreground="White" Height="30" Grid.RowSpan="2"/>
+                            <Label Content="Период:" HorizontalAlignment="Left" Margin="28,22,0,0" VerticalAlignment="Top" Width="72" FontWeight="SemiBold" Foreground="White" Height="30" Grid.RowSpan="2"/>
+
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+        <Button Grid.Column="1" Content="Выход" HorizontalAlignment="Left" Margin="637,10,0,0" VerticalAlignment="Top" Width="87" Height="27" Template="{StaticResource ButtonTemplate}" Padding="0,0,0,5" Click="Exit"/>
+        <Label Content="Администратор: " Foreground="White" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
+        <Label Content="ФИО"   Foreground="White" HorizontalAlignment="Left" Margin="135,6,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
