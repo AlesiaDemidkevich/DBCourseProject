@@ -19,35 +19,42 @@ using System.Windows.Shapes;
 namespace Cinema
 {
     /// <summary>
-    /// Логика взаимодействия для AddSeance.xaml
+    /// Логика взаимодействия для ChangeSeance.xaml
     /// </summary>
-    public partial class AddSeance : Window
+    public partial class ChangeSeance : Window
     {
         BindingList<string> HallNameList;
         BindingList<string> FilmNameList;
         BindingList<string> SeanceTimeList;
-        public AddSeance(BindingList<string> nameHallList, BindingList<string> nameFilmList, BindingList<string> seanceTimeList)
+        Seance seance;
+        public ChangeSeance(Seance seance,BindingList<string> nameHallList, BindingList<string> nameFilmList, BindingList<string> seanceTimeList)
         {
             InitializeComponent();
+            this.seance = seance;
             HallNameList = nameHallList;
             seanceHall.ItemsSource = HallNameList;
             FilmNameList = nameFilmList;
             seanceFilm.ItemsSource = FilmNameList;
             SeanceTimeList = seanceTimeList;
             seanceTime.ItemsSource = SeanceTimeList;
+            seanceDate.Text = seance.seanceDate;
+            seanceTime.SelectedItem = seance.seanceTime;
+            seanceHall.SelectedItem = seance.seanceHall;
+            seanceFilm.SelectedItem = seance.seanceFilm.Name;
+            
         }
 
-        private void seanceAddButton_Click(object sender, RoutedEventArgs e)
+        private void seanceSaveButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (seanceDate.SelectedDate == null || seanceTime.Text == null || seanceHall.Text == null || seanceFilm.Text == null)
-                { 
+                {
                     MessageBox.Show("Заполните все поля!");
                 }
                 else
                 {
-                    addSeance();
+                    changeSeance();
                     this.Owner.Activate();
                     this.Close();
                 }
@@ -58,13 +65,20 @@ namespace Cinema
             }
         }
 
-        public void addSeance() 
+        public void changeSeance()
         {
             try
             {
                 using (OracleConnection connection = new OracleConnection(OracleDatabaseConnection.connection))
                 {
                     connection.Open();
+                    OracleParameter id_in = new OracleParameter
+                    {
+                        ParameterName = "ID_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Int32,
+                        Value = seance.seanceID
+                    };
                     OracleParameter date_in = new OracleParameter
                     {
                         ParameterName = "Date_in",
@@ -92,14 +106,14 @@ namespace Cinema
                         Direction = ParameterDirection.Input,
                         OracleDbType = OracleDbType.Varchar2,
                         Value = seanceFilm.Text
-                    };                    
-                    using (OracleCommand command = new OracleCommand("addSeance"))
+                    };
+                    using (OracleCommand command = new OracleCommand("updateSeance"))
                     {
                         command.Connection = connection;
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddRange(new OracleParameter[] { date_in, time_in, hall_in, film_in });
+                        command.Parameters.AddRange(new OracleParameter[] { id_in, date_in, time_in, hall_in, film_in });
                         command.ExecuteNonQuery();
-                        MessageBox.Show("Сеанс добавлен!");
+                        MessageBox.Show("Сеанс изменен!");
                     }
                 }
             }

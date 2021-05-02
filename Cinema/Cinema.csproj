@@ -73,6 +73,9 @@
     <Compile Include="ChangeEmployee.xaml.cs">
       <DependentUpon>ChangeEmployee.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChangeSeance.xaml.cs">
+      <DependentUpon>ChangeSeance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Film.cs" />
     <Compile Include="FilmWindow.xaml.cs">
       <DependentUpon>FilmWindow.xaml</DependentUpon>
@@ -122,7 +125,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ChangeSeance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FilmWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\BlackButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -103,6 +103,7 @@ namespace Cinema.Admin
         {
             GetHall();
             AddSeance addSeance = new AddSeance(HallNameList, FilmNameList, SeanceTimeList);
+            addSeance.Owner = this;
             addSeance.Show();
         }
 
@@ -110,6 +111,7 @@ namespace Cinema.Admin
         {
             GetGenre();
             AddFilm addFilm = new AddFilm(GenreNameList);
+            addFilm.Owner = this;
             addFilm.Show();
         }
 
@@ -145,6 +147,7 @@ namespace Cinema.Admin
 
                         foreach (DataRow row in dt.Rows)
                         {
+                            int ID = Convert.ToInt32(row["ID"]);
                             string name = row["name"].ToString();
                             string secondname = row["secondName"].ToString();
                             string surname = row["surname"].ToString();
@@ -154,8 +157,10 @@ namespace Cinema.Admin
                             string post = row["positionName"].ToString();
                             string phone = row["phoneNumber"].ToString();
                             string salary =(row["salary"]).ToString();
+                            string login = (row["Login"]).ToString();
+                            string password = (row["Password"]).ToString();
 
-                            cur_employee = new Employee(fio, name, secondname, surname,birthday,startDay,phone,post,salary);
+                            cur_employee = new Employee(ID,fio, name, secondname, surname,birthday,startDay,phone,post,salary, login, password);
                             allEmployeeList.Add(cur_employee);
                         }
                     }
@@ -194,13 +199,15 @@ namespace Cinema.Admin
 
                         foreach (DataRow row in dt.Rows)
                         {
-                            string date = Convert.ToDateTime(row["DateSeance"]).ToString("D"); 
+                            string date = Convert.ToDateTime(row["DateSeance"]).ToString("D");
+                            DateTime date2 = Convert.ToDateTime(row["DateSeance"]);
                             string time = row["TimeSeance"].ToString();
                             string hall = row["hallName"].ToString();
-                            string filmName = row["FilmName"].ToString(); 
+                            string filmName = row["FilmName"].ToString();
+                            int seanceID = Convert.ToInt32(row["ID"]);
                             Film film = new Film(filmName);
                             string capacity = row["HallCapacity"].ToString();
-                            cur_seance = new Seance(date,time, hall, film, capacity);
+                            cur_seance = new Seance(seanceID, date, date2, time, hall, film, capacity);
                             allSeanceList.Add(cur_seance);
 
                             if (SeanceTimeList.Contains(time))
@@ -414,6 +421,7 @@ namespace Cinema.Admin
 
                             foreach (DataRow row in dt.Rows)
                             {
+                                int id = Convert.ToInt32(row["ID"]);
                                 string name = row["name"].ToString();
                                 string genre = row["genre"].ToString();
                                 string year = row["year"].ToString();
@@ -424,7 +432,7 @@ namespace Cinema.Admin
                                 string endRelease = Convert.ToDateTime(row["endrelease"]).ToString("D");
                                 byte[] img = (byte[])(row["img"]);
 
-                                cur_film = new Film(name, genre, year, duration, ageLimit, startRelease, endRelease, img, description);
+                                cur_film = new Film(id, name, genre, year, duration, ageLimit, startRelease, endRelease, img, description);
                                 allFilmList.Add(cur_film);
                                 FilmNameList.Add(name);
                             }
@@ -471,6 +479,7 @@ namespace Cinema.Admin
         {
             GetPost();
             ChangeEmployee changeEmployee = new ChangeEmployee(allEmployeeList[employeeTable.SelectedIndex],PostNameList);
+            changeEmployee.Owner = this;
             changeEmployee.Show();
         }
 
@@ -478,15 +487,12 @@ namespace Cinema.Admin
 
         private void filmEndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-           
-                SortFilm();
-            
+           SortFilm();            
         }
 
         private void filmStartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {            
-                SortFilm();
-          
+        { 
+            SortFilm();          
         }
 
         private void searchEmployee(object sender, RoutedEventArgs e)
@@ -633,6 +639,199 @@ namespace Cinema.Admin
         {
             GetEmployee();
             employeeTable.ItemsSource = allEmployeeList;
+            GetFilm();
+            filmTable.ItemsSource = allFilmList;
+            GetSeance();
+            allSeanceTime.ItemsSource = SeanceTimeList;
+            seanceTable.ItemsSource = allSeanceList;
+        }
+
+        private void deleteEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteCurrentEmployee();
+            GetEmployee();
+            employeeTable.ItemsSource = allEmployeeList;
+        }
+
+        public void DeleteCurrentEmployee()
+        {
+            int index = allEmployeeList.IndexOf((Employee)employeeTable.SelectedItem);
+            Employee cur_emp = allEmployeeList[index];            
+            try
+            {
+                using (OracleConnection connection = new OracleConnection(OracleDatabaseConnection.connection))
+                {
+                    connection.Open();
+                    OracleParameter surname_in = new OracleParameter
+                    {
+                        ParameterName = "Surname_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Varchar2,
+                        Value = cur_emp.Surname
+                    };
+                    OracleParameter name_in = new OracleParameter
+                    {
+                        ParameterName = "Name_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Varchar2,
+                        Value = cur_emp.Name
+                    };
+                    OracleParameter secondName_in = new OracleParameter
+                    {
+                        ParameterName = "SecondName_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Varchar2,
+                        Value = cur_emp.Secondname
+                    };
+                    OracleParameter phoneNumber_in = new OracleParameter
+                    {
+                        ParameterName = "PhoneNumber_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Varchar2,
+                        Value = cur_emp.PhoneNumber
+                    };                    
+                    using (OracleCommand command = new OracleCommand("deleteEmployee"))
+                    {
+                        command.Connection = connection;
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddRange(new OracleParameter[] { surname_in, name_in, secondName_in, phoneNumber_in});
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Сотрудник удален!");
+                    }
+                }
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void seanceTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            GetHall();
+            ChangeSeance changeSeance = new ChangeSeance(allSeanceList[seanceTable.SelectedIndex],HallNameList, FilmNameList, SeanceTimeList);
+            changeSeance.Owner = this;
+            changeSeance.Show();
+        }
+
+        private void deleteSeance_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteCurrentSeance();
+            GetSeance();
+            seanceTable.ItemsSource = allSeanceList;
+        }
+
+        public void DeleteCurrentSeance()
+        {
+            int index = allSeanceList.IndexOf((Seance)seanceTable.SelectedItem);
+            Seance cur_seance = allSeanceList[index];
+            try
+            {
+                using (OracleConnection connection = new OracleConnection(OracleDatabaseConnection.connection))
+                {                    
+                    connection.Open();                   
+                    OracleParameter date_in = new OracleParameter
+                    {
+                        ParameterName = "Date_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Date,
+                        Value =cur_seance.seanceDate2
+                };
+                    OracleParameter time_in = new OracleParameter
+                    {
+                        ParameterName = "Time_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Varchar2,
+                        Value = cur_seance.seanceTime
+                    };
+                    OracleParameter hall_in = new OracleParameter
+                    {
+                        ParameterName = "Hall_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Varchar2,
+                        Value = cur_seance.seanceHall
+                    };
+                    OracleParameter film_in = new OracleParameter
+                    {
+                        ParameterName = "Film_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Varchar2,
+                        Value = cur_seance.seanceFilm.Name
+                    };
+                    using (OracleCommand command = new OracleCommand("deleteSeance"))
+                    {
+                        command.Connection = connection;
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddRange(new OracleParameter[] { date_in, time_in, hall_in, film_in });
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Сеанс удален!");
+                    }
+                }
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void deleteFilm_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteFilmSeance();
+            GetFilm();
+            filmTable.ItemsSource = allFilmList;
+        }
+
+        public void DeleteFilmSeance()
+        {
+            int index = allFilmList.IndexOf((Film)filmTable.SelectedItem);
+            Film cur_film = allFilmList[index];
+            try
+            {
+                using (OracleConnection connection = new OracleConnection(OracleDatabaseConnection.connection))
+                {
+                    connection.Open();
+                    OracleParameter id_in = new OracleParameter
+                    {
+                        ParameterName = "ID_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Int32,
+                        Value = cur_film.ID
+                    };
+                    OracleParameter name_in = new OracleParameter
+                    {
+                        ParameterName = "Name_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Varchar2,
+                        Value = cur_film.Name
+                    };
+                    OracleParameter genre_in = new OracleParameter
+                    {
+                        ParameterName = "Genre_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Varchar2,
+                        Value = cur_film.Genre
+                    };
+                    OracleParameter year_in = new OracleParameter
+                    {
+                        ParameterName = "Year_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Varchar2,
+                        Value = cur_film.Year
+                    };
+                    using (OracleCommand command = new OracleCommand("deleteFilm"))
+                    {
+                        command.Connection = connection;
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddRange(new OracleParameter[] { id_in, name_in, genre_in, year_in});
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Фильм удален!");
+                    }
+                }
+            }
+            catch (OracleException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

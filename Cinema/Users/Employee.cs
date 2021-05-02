@@ -11,8 +11,9 @@ namespace Cinema.Users
         public Employee()
         {
         }
-        public Employee(string fio, string name, string secondname, string surname, string birthday, string startDay, string phone, string post, string salary)
+        public Employee(int ID,string fio, string name, string secondname, string surname, string birthday, string startDay, string phone, string post, string salary, string login, string password)
         {
+            this.ID = ID;
             FIO = fio;
             Name = name;
             Secondname = secondname;
@@ -22,6 +23,9 @@ namespace Cinema.Users
             PhoneNumber = phone;
             Post = post;
             Salary = salary;
+            Login = login;
+            Password = password;
+
         }
 
         public Employee(string name, string secondname, string surname)

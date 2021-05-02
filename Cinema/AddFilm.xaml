@@ -5,27 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Title="Добавить фильм"  Height="600" Width="500"  WindowStartupLocation="CenterScreen" FontSize="16" ResizeMode="CanMinimize">
-    <Grid>
-        <Rectangle Fill="#2b2728" HorizontalAlignment="Left" RadiusX="15" RadiusY="15" Height="525" Margin="18,18,0,0" VerticalAlignment="Top" Width="456" Opacity="0.5"/>
-        <Label Content="Название" HorizontalAlignment="Left" Margin="104,94,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <TextBox x:Name="filmName" HorizontalAlignment="Left" Height="28" Margin="207,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
-        <TextBox x:Name="filmDuration" HorizontalAlignment="Left" Height="28" Margin="207,195,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205"/>
-        <TextBox x:Name="filmAgeLimit" HorizontalAlignment="Left" Height="28" Margin="207,229,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205"/>
-        <Label Content="Жанр" HorizontalAlignment="Left" Margin="138,126,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" RenderTransformOrigin="0.647,0.519"/>
-        <Label Content="Год создания" HorizontalAlignment="Left" Margin="74,158,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <Label Content="Продолжительность" HorizontalAlignment="Left" Margin="13,190,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <Label Content="Ограничение" HorizontalAlignment="Left" Margin="73,227,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <Label Content="Информация о фильме" HorizontalAlignment="Left" Margin="136,34,0,0" VerticalAlignment="Top" Height="36" FontSize="20" FontWeight="SemiBold" Foreground="White"/>
-        <Button x:Name="filmAddButton" Content="Добавить" HorizontalAlignment="Left" Margin="270,458,0,0" FontSize="20" VerticalAlignment="Top" Width="142" Height="60"  Padding="0,0,0,5" />
-        <Label Content="Начало проката" HorizontalAlignment="Left" Margin="49,259,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <Label Content="Конец проката" HorizontalAlignment="Left" Margin="58,291,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <Label Content="Описание" HorizontalAlignment="Left" Margin="99,323,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <TextBox x:Name="filmYear" HorizontalAlignment="Left" Height="28" Margin="207,162,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
-        <TextBox x:Name="filmNameDiscription" HorizontalAlignment="Left" Height="104" Margin="207,328,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
-        <ComboBox  x:Name="filmGenre" HorizontalAlignment="Left" Margin="207,130,0,0" VerticalAlignment="Top" Width="205"/>
-        <DatePicker x:Name="filmStart" HorizontalAlignment="Left" Margin="207,262,0,0" VerticalAlignment="Top" Width="205"/>
-        <DatePicker x:Name="filmEnd" HorizontalAlignment="Left" Margin="207,295,0,0" VerticalAlignment="Top" Width="205"/>
+        Title="Добавить фильм"  Height="670.133" Width="796"  WindowStartupLocation="CenterScreen" FontSize="16" ResizeMode="CanMinimize">
+    <Grid Margin="0,0,18.6,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="431*"/>
+            <ColumnDefinition Width="340*"/>
+        </Grid.ColumnDefinitions>
+        <Rectangle Fill="#2b2728" HorizontalAlignment="Left" RadiusX="15" RadiusY="15" Height="591" Margin="10,29,-0.8,0" VerticalAlignment="Top" Width="762" Opacity="0.5" Grid.ColumnSpan="2"/>
+        <Label Content="Название" HorizontalAlignment="Left" Margin="115,111,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <TextBox x:Name="filmName" HorizontalAlignment="Left" Height="28" Margin="218,113,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
+        <TextBox x:Name="filmDuration" HorizontalAlignment="Left" Height="28" Margin="218,308,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205"/>
+        <TextBox x:Name="filmAgeLimit" HorizontalAlignment="Left" Height="28" Margin="219,369,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205"/>
+        <Label Content="Жанр" HorizontalAlignment="Left" Margin="149,175,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" RenderTransformOrigin="0.647,0.519"/>
+        <Label Content="Год создания" HorizontalAlignment="Left" Margin="85,239,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Продолжительность" HorizontalAlignment="Left" Margin="24,303,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Ограничение" HorizontalAlignment="Left" Margin="85,367,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Информация о фильме" HorizontalAlignment="Left" Margin="311,35,0,0" VerticalAlignment="Top" Height="36" FontSize="20" FontWeight="SemiBold" Foreground="White" Grid.ColumnSpan="2"/>
+        <Button x:Name="filmAddButton" Content="Добавить" Template="{StaticResource ButtonTemplate2}" HorizontalAlignment="Left" Margin="156.8,554,0,0" FontSize="20" VerticalAlignment="Top" Width="142" Height="48"  Padding="0,0,0,5" Grid.Column="1" Click="filmAddButton_Click" />
+        <Label Content="Начало проката" HorizontalAlignment="Left" Margin="63,433,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Конец проката" HorizontalAlignment="Left" Margin="73,496,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Описание" HorizontalAlignment="Left" Margin="61.8,356,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" Grid.Column="1"/>
+        <TextBox x:Name="filmYear" HorizontalAlignment="Left" Height="28" Margin="218,243,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
+        <TextBox x:Name="filmDescription" HorizontalAlignment="Left" Height="137" Margin="61.8,391,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="237" Grid.Column="1" />
+        <ComboBox  x:Name="filmGenre" HorizontalAlignment="Left" Margin="218,179,0,0" VerticalAlignment="Top" Width="205"/>
+        <DatePicker x:Name="filmStart" HorizontalAlignment="Left" Margin="221,436,0,0" VerticalAlignment="Top" Width="205"/>
+        <DatePicker x:Name="filmEnd" HorizontalAlignment="Left" Margin="222,500,0,0" VerticalAlignment="Top" Width="205"/>
+        <Image x:Name="filmImg" HorizontalAlignment="Left" Height="160" Margin="61.8,123,0,0" VerticalAlignment="Top" Width="225" Grid.Column="1"/>
+        <Label Content="Изображение" HorizontalAlignment="Left" Margin="55.8,84,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" Grid.Column="1"/>
+        <Button x:Name="filmImgAdd" Content="Загрузить" Template="{StaticResource ButtonTemplate2}" HorizontalAlignment="Left" Margin="168.8,297,0,0" FontSize="20" VerticalAlignment="Top" Width="130" Height="38"  Padding="0,0,0,5" Grid.Column="1" Click="filmImgAdd_Click" />
 
     </Grid>
 </Window>

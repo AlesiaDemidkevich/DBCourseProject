@@ -58,7 +58,7 @@
         <Label Content="Дата рождения" HorizontalAlignment="Left" Margin="41,184,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
         <Label Content="Дата зачисления" HorizontalAlignment="Left" Margin="29,221,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
         <Label Content="Персональная информация" HorizontalAlignment="Left" Margin="122,24,0,0" VerticalAlignment="Top" Height="36" FontSize="20" FontWeight="SemiBold" Foreground="White"/>
-        <Button x:Name="employeeAddButton" Content="Добавить" HorizontalAlignment="Left" Margin="262,442,0,0" FontSize="20" VerticalAlignment="Top" Width="142" Height="53"  Padding="0,0,0,5" Click="employeeAddButton_Click" />
+        <Button x:Name="employeeAddButton" Content="Добавить"  Template="{StaticResource ButtonTemplate2}" HorizontalAlignment="Left" Margin="262,442,0,0" FontSize="20" VerticalAlignment="Top" Width="142" Height="40"  Padding="0,0,0,5" Click="employeeAddButton_Click" />
         <Label Content="Должность" HorizontalAlignment="Left" Margin="77,253,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
         <Label Content="Телефон" HorizontalAlignment="Left" Margin="99,285,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
         <Label Content="Зарплата" HorizontalAlignment="Left" Margin="95,317,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>

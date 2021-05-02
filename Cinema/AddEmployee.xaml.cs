@@ -35,8 +35,7 @@ namespace Cinema
         }
 
         private void employeeAddButton_Click(object sender, RoutedEventArgs e)
-        {
-           
+        {           
             try
             {
                 if (employeeSurname.Text == null || employeeName.Text == null || employeeSecondName.Text == null || employeeBirthday.SelectedDate == null || employeeStart.SelectedDate == null

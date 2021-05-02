@@ -14,7 +14,8 @@ namespace Cinema
             Name = name;
         }
 
-        public Film(string name, string genre, string year, string duration, string agelimit, string start, string end, byte[] img, string description) {
+        public Film(int ID,string name, string genre, string year, string duration, string agelimit, string start, string end, byte[] img, string description) {
+            this.ID = ID;
             Name = name;
             Genre = genre;
             Year = year;
@@ -26,6 +27,7 @@ namespace Cinema
             Description = description;
         
         }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Genre { get; set; }
         public string Year { get; set; }

@@ -10,26 +10,22 @@
         <Rectangle Fill="#2b2728" HorizontalAlignment="Left" RadiusX="15" RadiusY="15" Height="520" Margin="18,18,0,0" VerticalAlignment="Top" Width="456" Opacity="0.5"/>
         <Label Content="Фамилия" HorizontalAlignment="Left" Margin="96,92,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
         <TextBox x:Name="employeeSurname" HorizontalAlignment="Left" Height="28" Margin="199,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205"/>
-        <TextBox x:Name="employeeName" HorizontalAlignment="Left" Height="28" Margin="199,129,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205"/>
-        <Label Content="Имя" HorizontalAlignment="Left" Margin="136,124,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" RenderTransformOrigin="0.647,0.519"/>
-        <Label Content="Отчество" HorizontalAlignment="Left" Margin="95,156,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <Label Content="Дата рождения" HorizontalAlignment="Left" Margin="41,188,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <Label Content="Дата зачисления" HorizontalAlignment="Left" Margin="29,225,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <TextBox x:Name="employeeName" HorizontalAlignment="Left" Height="28" Margin="199,135,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205"/>
+        <Label Content="Имя" HorizontalAlignment="Left" Margin="136,130,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" RenderTransformOrigin="0.647,0.519"/>
+        <Label Content="Отчество" HorizontalAlignment="Left" Margin="95,170,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Дата рождения" HorizontalAlignment="Left" Margin="41,208,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Дата зачисления" HorizontalAlignment="Left" Margin="29,251,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
         <Label Content="Персональная информация" HorizontalAlignment="Left" Margin="122,28,0,0" VerticalAlignment="Top" Height="36" FontSize="20" FontWeight="SemiBold" Foreground="White"/>
-        <Button x:Name="employeeAddButton" Content="Сохранить" HorizontalAlignment="Left" Margin="262,442,0,0" FontSize="20" VerticalAlignment="Top" Width="142" Height="48"  Padding="0,0,0,5" />
-        <Label Content="Должность" HorizontalAlignment="Left" Margin="77,257,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <Label Content="Телефон" HorizontalAlignment="Left" Margin="99,289,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <Label Content="Зарплата" HorizontalAlignment="Left" Margin="95,321,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
-        <Label Content="Логин" HorizontalAlignment="Left" Margin="118,357,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" RenderTransformOrigin="0.714,2.175"/>
-        <Label Content="Пароль" HorizontalAlignment="Left" Margin="108,389,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" RenderTransformOrigin="0.714,2.175"/>
-        <TextBox x:Name="employeeSecondName" HorizontalAlignment="Left" Height="28" Margin="199,162,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
-        <TextBox x:Name="employeePhoneNumber" HorizontalAlignment="Left" Height="28" Margin="199,295,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
-        <TextBox x:Name="employeeSalary" HorizontalAlignment="Left" Height="28" Margin="199,328,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
-        <TextBox x:Name="employeeLogin" HorizontalAlignment="Left" Height="28" Margin="199,361,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" IsEnabled="False" />
-        <TextBox x:Name="employeePassword" HorizontalAlignment="Left" Height="28" Margin="199,394,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205"  IsEnabled="False"/>
-        <DatePicker x:Name="employeeBirhday" HorizontalAlignment="Left" Margin="199,195,0,0" VerticalAlignment="Top" Width="205"/>
-        <DatePicker x:Name="employeeStart" HorizontalAlignment="Left" Margin="199,229,0,0" VerticalAlignment="Top" Width="205"/>
-        <ComboBox x:Name="employeePost" HorizontalAlignment="Left" Margin="199,262,0,0" VerticalAlignment="Top" Width="205" KeyDown="employeePost_KeyDown"/>
+        <Button x:Name="employeeAddButton" Content="Сохранить" Template="{StaticResource ButtonTemplate2}" HorizontalAlignment="Left" Margin="262,442,0,0" FontSize="20" VerticalAlignment="Top" Width="142" Height="48"  Padding="0,0,0,5" Click="employeeAddButton_Click" />
+        <Label Content="Должность" HorizontalAlignment="Left" Margin="77,289,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Телефон" HorizontalAlignment="Left" Margin="99,327,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <Label Content="Зарплата" HorizontalAlignment="Left" Margin="95,365,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+        <TextBox x:Name="employeeSecondName" HorizontalAlignment="Left" Height="28" Margin="199,176,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
+        <TextBox x:Name="employeePhoneNumber" HorizontalAlignment="Left" Height="28" Margin="199,333,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
+        <TextBox x:Name="employeeSalary" HorizontalAlignment="Left" Height="28" Margin="199,372,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
+        <DatePicker x:Name="employeeBirthday" HorizontalAlignment="Left" Margin="199,215,0,0" VerticalAlignment="Top" Width="205"/>
+        <DatePicker x:Name="employeeStart" HorizontalAlignment="Left" Margin="199,255,0,0" VerticalAlignment="Top" Width="205"/>
+        <ComboBox x:Name="employeePost" HorizontalAlignment="Left" Margin="199,294,0,0" VerticalAlignment="Top" Width="205"/>
 
     </Grid>
 </Window>
