@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,12 @@ namespace Cinema
     /// </summary>
     public partial class AddEmployee : Window
     {
-        public AddEmployee()
+        BindingList<string> PostNameList;
+        public AddEmployee(BindingList<string> postList)
         {
             InitializeComponent();
+            PostNameList = postList;
+            employeePost.ItemsSource = PostNameList;
         }
     }
 }

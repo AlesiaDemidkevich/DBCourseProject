@@ -5,16 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Title="Авторизация" Height="600" Width="500" WindowStartupLocation="CenterScreen" FontSize="16" ResizeMode="CanMinimize">
+        Title="Авторизация" Background="#2b2728" Height="600" Width="500" WindowStartupLocation="CenterScreen" FontSize="16" ResizeMode="CanMinimize">
     <Grid>
-        <Button Content="Войти" x:Name="loginButton" HorizontalAlignment="Left" Margin="155,465,0,0" VerticalAlignment="Top" Width="190" FontSize="24" Click="loginButton_Click" Height="62"/>
-        <Label Content="Авторизация" HorizontalAlignment="Left" Margin="135,52,0,0" VerticalAlignment="Top" FontSize="36" Height="74" Width="224"/>
-        <Label Content="Логин" HorizontalAlignment="Left" Margin="189,135,0,0" VerticalAlignment="Top" FontSize="36"/>
-        <Label Content="Пароль" HorizontalAlignment="Left" Margin="182,302,0,0" VerticalAlignment="Top" FontSize="36"/>
-        <TextBox  x:Name="loginText" HorizontalAlignment="Left" Height="45" FontSize="24" Margin="93,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="300"/>
-        <PasswordBox x:Name="passwordText" HorizontalAlignment="Left" Margin="93,379,0,0" FontSize="24" VerticalAlignment="Top" Height="45" Width="300"/>
-        <TextBox x:Name="passwordText2" HorizontalAlignment="Left" Height="45" Margin="93,379,0,0" TextWrapping="Wrap" FontSize="24" Text="" VerticalAlignment="Top" Width="300" Visibility="Hidden" />
-        <CheckBox x:Name="showPassword" Content="" HorizontalAlignment="Left" Margin="374,408,0,0" VerticalAlignment="Top" Click="showPassword_Click" RenderTransformOrigin="0.898,0.524" Height="16" Width="19"/>
+        <Button Content="Войти" x:Name="loginButton" HorizontalAlignment="Left" Margin="179,451,0,0" VerticalAlignment="Top" Width="144" Click="loginButton_Click" Height="51"  Template="{StaticResource ButtonTemplate}" />
+        <Label Content="Авторизация" Foreground="White" HorizontalAlignment="Left" Margin="135,40,0,0" VerticalAlignment="Top" FontSize="36" Height="74" Width="224" >
+            <Label.Effect>
+                <DropShadowEffect
+                 ShadowDepth="4"
+                 Direction="330"
+                 Color="Black"
+                 Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="Логин" HorizontalAlignment="Left" Margin="189,123,0,0" VerticalAlignment="Top" FontSize="36" Foreground="White" >
+            <Label.Effect>
+                <DropShadowEffect
+                 ShadowDepth="4"
+                 Direction="330"
+                 Color="Black"
+                 Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="Пароль" HorizontalAlignment="Left" Margin="182,276,0,0" VerticalAlignment="Top" FontSize="36" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect
+                 ShadowDepth="4"
+                 Direction="330"
+                 Color="Black"
+                 Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <TextBox  x:Name="loginText" HorizontalAlignment="Left" Height="45" FontSize="24" Margin="93,195,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="300" BorderBrush="Silver" LostFocus="loginText_LostFocus" GotFocus="loginText_GotFocus">
+            <TextBox.Effect>
+                <DropShadowEffect
+                 ShadowDepth="4"
+                 Direction="330"
+                 Color="Black"
+                 Opacity="0.5"/>
+            </TextBox.Effect>
+        </TextBox>
+        <PasswordBox x:Name="passwordText" HorizontalAlignment="Left" Margin="93,339,0,0" FontSize="24" VerticalAlignment="Top" Height="45" Width="300" BorderBrush="Silver" LostFocus="passwordText_LostFocus" GotFocus="passwordText_GotFocus">
+            <PasswordBox.Effect>
+                <DropShadowEffect
+                 ShadowDepth="4"
+                 Direction="330"
+                 Color="Black"
+                 Opacity="0.5"/>
+            </PasswordBox.Effect>
+        </PasswordBox>
+        <TextBox x:Name="passwordText2" HorizontalAlignment="Left" Height="45" Margin="93,379,0,0" TextWrapping="Wrap" FontSize="24" Text="" VerticalAlignment="Top" Width="300" Visibility="Hidden" BorderBrush="#FF454242">
+            <TextBox.Effect>
+                <DropShadowEffect
+                 ShadowDepth="4"
+                 Direction="330"
+                 Color="Black"
+                 Opacity="0.5"/>
+            </TextBox.Effect>
+        </TextBox>
+        <CheckBox x:Name="showPassword" Content="" HorizontalAlignment="Left" Margin="374,368,0,0" VerticalAlignment="Top" Click="showPassword_Click" RenderTransformOrigin="0.898,0.524" Height="16" Width="19"/>
+        <Label x:Name="PopupText"  Foreground="Red" Margin="93,242,0,0" Padding="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Width="151"/>
+        <Label x:Name="PopupText1" Foreground="Red" Margin="93,385,0,0" Padding="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Width="151"/>
 
     </Grid>
 </Window>

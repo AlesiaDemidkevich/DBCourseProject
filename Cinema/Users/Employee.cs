@@ -8,17 +8,40 @@ namespace Cinema.Users
 {
     public class Employee
     {
+        public Employee()
+        {
+        }
+        public Employee(string fio, string name, string secondname, string surname, string birthday, string startDay, string phone, string post, string salary)
+        {
+            FIO = fio;
+            Name = name;
+            Secondname = secondname;
+            Surname = surname;
+            Birthday = birthday;
+            DateOfEnrollment = startDay;
+            PhoneNumber = phone;
+            Post = post;
+            Salary = salary;
+        }
+
+        public Employee(string name, string secondname, string surname)
+        {
+            Name = name;
+            Secondname = secondname;
+            Surname = surname;
+        }
         public int ID { get; set; }
-        public string name { get; set; }       
-        public string secondname { get; set; }
-        public string surname { get; set; }
-        public string login { get; set; }
-        public string password { get; set; }
+        public string Name { get; set; }       
+        public string Secondname { get; set; }
+        public string Surname { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
         public int IDEmployee { get; set; }
-        public DateTime birthday { get; set; }
-        public DateTime dateOfEnrollment { get; set; }
-        public string phoneNumber { get; set; }
-        public double salary { get; set; }
-        public string post { get; set; }
+        public string Birthday { get; set; }
+        public string DateOfEnrollment { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Salary { get; set; }
+        public string Post { get; set; }
+        public string FIO { get; set; }
     }
 }

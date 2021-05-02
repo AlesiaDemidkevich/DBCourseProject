@@ -8,14 +8,33 @@ namespace Cinema
 {
     public class Film
     {
-        public string name { get; set; }
-        public string genre { get; set; }
-        public string year { get; set; }
-        public string duration { get; set; }
-        public string ageLimit { get; set; }
-        public DateTime startreleaseDate { get; set; }
-        public DateTime endreleaseDate { get; set; }
-        public string description { get; set; }
+        public Film() { }
 
+        public Film(string name) {
+            Name = name;
+        }
+
+        public Film(string name, string genre, string year, string duration, string agelimit, string start, string end, byte[] img, string description) {
+            Name = name;
+            Genre = genre;
+            Year = year;
+            Duration = duration;
+            AgeLimit = agelimit;
+            StartreleaseDate = start;
+            EndreleaseDate = end;
+            Imagine = img;
+            Description = description;
+        
+        }
+        public string Name { get; set; }
+        public string Genre { get; set; }
+        public string Year { get; set; }
+        public string Duration { get; set; }
+        public string AgeLimit { get; set; }
+        public string StartreleaseDate { get; set; }
+        public string EndreleaseDate { get; set; }
+        public string Description { get; set; }
+        public byte[] Imagine { get; set; }
+       
     }
 }

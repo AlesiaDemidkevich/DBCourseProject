@@ -32,10 +32,13 @@ namespace Cinema
         public Authorization()
         {
             InitializeComponent();
+            loginText.ToolTip = "Введите имя пользователя";
+            passwordText.ToolTip = "Пароль должен содержать 16 символов";
+            showPassword.ToolTip = "Показать пароль";
         }
 
-        private void loginButton_Click(object sender, RoutedEventArgs e)
-        {
+        public void checkUser()
+        {          
             currentEmployee = new Employee();
             try
             {
@@ -75,21 +78,30 @@ namespace Cinema
 
                         foreach (DataRow row in dt.Rows)
                         {
-                            currentEmployee.login = row["Login"].ToString();
-                            currentEmployee.password = row["Password"].ToString();
+                            currentEmployee.Login = row["Login"].ToString();
+                            currentEmployee.Password = row["Password"].ToString();
                             currentEmployee.IDEmployee = Convert.ToInt32(row["IDEmployee"]);
                         }
                     }
 
                     oracleConnection.Close();
                     currUserPos = loginText.Text;
-                    if (currUserPos == currentEmployee.login)
+                    if (currUserPos == currentEmployee.Login)
                     {
-                        AdminWindow adminWindow = new AdminWindow(currentEmployee.IDEmployee);
-                        adminWindow.Show();
-                        this.Close();
+                        if (currUserPos == "Администратор")
+                        {
+                            AdminWindow adminWindow = new AdminWindow(currentEmployee.IDEmployee);
+                            adminWindow.Show();
+                            this.Close();
+                        }
+                        else {
+                            BookingWindow bookingWindow = new BookingWindow(currentEmployee.IDEmployee);
+                            bookingWindow.Show();
+                            this.Close();
+                        }
                     }
-                    else {
+                    else
+                    {
                         MessageBox.Show("Пользователя не существует");
                         loginText.Text = "";
                         passwordText.Password = "";
@@ -101,7 +113,31 @@ namespace Cinema
             {
                 MessageBox.Show(ex.Message);
             }
+           
+        }
 
+        private void loginButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (loginText.Text != "" && passwordText.Password != "")
+            {
+                checkUser();
+            }
+            else if (loginText.Text == "" && passwordText.Password != "")
+            {
+                PopupText.Content = "Заполните поле";
+                loginText.BorderBrush = Brushes.Red;
+            }
+            else if (loginText.Text != "" && passwordText.Password == "")
+            {
+                PopupText1.Content = "Заполните поле";
+                passwordText.BorderBrush = Brushes.Red;
+            }
+            else {
+                PopupText.Content = "Заполните поле";
+                loginText.BorderBrush = Brushes.Red;
+                PopupText1.Content = "Заполните поле";
+                passwordText.BorderBrush = Brushes.Red;
+            }
         }
 
         private void showPassword_Click(object sender, RoutedEventArgs e)
@@ -119,6 +155,46 @@ namespace Cinema
                 passwordText2.Visibility = Visibility.Hidden;
                 passwordText.Visibility = Visibility.Visible;
             }
+        }
+
+        private void loginText_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (loginText.Text == "")
+            {
+                loginText.BorderBrush = Brushes.Red;
+                PopupText.Content = "Заполните поле";
+            }
+            else
+            {
+                loginText.BorderBrush = Brushes.Silver;
+                PopupText.Content = "";
+            }
+        }
+
+        private void passwordText_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (passwordText.Password == "")
+            {
+                passwordText.BorderBrush = Brushes.Red;
+                PopupText1.Content = "Заполните поле";
+            }
+            else
+            {
+                passwordText.BorderBrush = Brushes.Silver;
+                PopupText1.Content = "";
+            }
+        }
+
+        private void passwordText_GotFocus(object sender, RoutedEventArgs e)
+        {
+            passwordText.BorderBrush = Brushes.Silver;
+            PopupText1.Content = "";
+        }
+
+        private void loginText_GotFocus(object sender, RoutedEventArgs e)
+        {
+            loginText.BorderBrush = Brushes.Silver;
+            PopupText.Content = "";
         }
     }
 }

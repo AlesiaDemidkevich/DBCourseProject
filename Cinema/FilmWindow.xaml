@@ -1,0 +1,65 @@
+﻿<Window x:Class="Cinema.FilmWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cinema"
+        mc:Ignorable="d"
+        Title="FilmWindow" Height="504.4" Width="747.06" WindowStartupLocation="CenterScreen"  ResizeMode="CanMinimize">
+    <Grid>
+        <Rectangle Fill="#2b2728" HorizontalAlignment="Left" RadiusX="15" RadiusY="15" Height="431" Margin="19,18,0,0" VerticalAlignment="Top" Width="702" Opacity="0.5"/>
+        <TextBlock x:Name="description" FontSize="16" HorizontalAlignment="Left" Height="165" Margin="61,303,0,0"  VerticalAlignment="Top" Width="626" TextWrapping="Wrap" FontWeight="SemiBold" Foreground="White"/>
+        <Image x:Name="img" Grid.Column="0" HorizontalAlignment="Left" Height="250" Margin="68,32,0,0" VerticalAlignment="Top" Width="270"/>
+        <Label Content="Название: " FontSize="17" HorizontalAlignment="Left" Margin="392,34,0,0" VerticalAlignment="Top" Width="92" FontWeight="SemiBold" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect
+                    ShadowDepth="2"
+                    Direction="330"
+                    Color="Black"
+                    Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="Год выпуска:" FontSize="17" Height="30" HorizontalAlignment="Left" Margin="392,71,0,0" VerticalAlignment="Top" Width="115" FontWeight="SemiBold" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect
+                    ShadowDepth="2"
+                    Direction="330"
+                    Color="Black"
+                    Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="Жанр: " Height="30" FontSize="17" HorizontalAlignment="Left" Margin="392,109,0,0" VerticalAlignment="Top" Width="92" FontWeight="SemiBold" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect
+                    ShadowDepth="2"
+                    Direction="330"
+                    Color="Black"
+                    Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="Продолжительность: " Height="38" FontSize="17" HorizontalAlignment="Left" Margin="392,146,0,0" VerticalAlignment="Top" Width="180" FontWeight="SemiBold" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect
+                    ShadowDepth="2"
+                    Direction="330"
+                    Color="Black"
+                    Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="Возрастное ограничение: " Height="38" FontSize="17" HorizontalAlignment="Left" Margin="392,187,0,0" VerticalAlignment="Top" Width="215" FontWeight="SemiBold" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect
+                    ShadowDepth="2"
+                    Direction="330"
+                    Color="Black"
+                    Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <TextBlock x:Name="name" FontSize="18" HorizontalAlignment="Left" Margin="497,39,0,0"   VerticalAlignment="Top" Height="30" Width="240" FontWeight="SemiBold" Foreground="White" />
+        <TextBlock x:Name="duration" FontSize="18" HorizontalAlignment="Left" Margin="574,150,-0.2,0"   VerticalAlignment="Top" Height="36" Width="167" FontWeight="SemiBold" Foreground="White"/>
+        <TextBlock x:Name="year"  FontSize="18" HorizontalAlignment="Left" Margin="517,76,0,0"  VerticalAlignment="Top" Height="30" Width="193" FontWeight="SemiBold" Foreground="White"/>
+        <TextBlock x:Name="genre" FontSize="18" Margin="464,111,160.8,329.4" FontWeight="SemiBold" Foreground="White"/>
+        <TextBlock x:Name="ageLimit" FontSize="18" HorizontalAlignment="Left" Margin="610,191,0,0"   VerticalAlignment="Top" Height="35" Width="100" FontWeight="SemiBold" Foreground="White"/>
+
+    </Grid>
+</Window>

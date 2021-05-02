@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:Cinema"
              StartupUri="AdminWindow.xaml">
     <Application.Resources>
-         
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="Style/MainButton.xaml" />                   
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
     </Application.Resources>
 </Application>

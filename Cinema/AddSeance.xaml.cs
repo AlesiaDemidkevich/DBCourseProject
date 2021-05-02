@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,18 @@ namespace Cinema
     /// </summary>
     public partial class AddSeance : Window
     {
-        public AddSeance()
+        BindingList<string> HallNameList;
+        BindingList<string> FilmNameList;
+        BindingList<string> SeanceTimeList;
+        public AddSeance(BindingList<string> nameHallList, BindingList<string> nameFilmList, BindingList<string> seanceTimeList)
         {
             InitializeComponent();
+            HallNameList = nameHallList;
+            seanceHall.ItemsSource = HallNameList;
+            FilmNameList = nameFilmList;
+            seanceFilm.ItemsSource = FilmNameList;
+            SeanceTimeList = seanceTimeList;
+            seanceTime.ItemsSource = SeanceTimeList;
         }
     }
 }

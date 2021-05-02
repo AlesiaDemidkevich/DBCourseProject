@@ -70,7 +70,16 @@
     <Compile Include="BookingWindow.xaml.cs">
       <DependentUpon>BookingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChangeEmployee.xaml.cs">
+      <DependentUpon>ChangeEmployee.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Film.cs" />
+    <Compile Include="FilmWindow.xaml.cs">
+      <DependentUpon>FilmWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Genre.cs" />
+    <Compile Include="Hall.cs" />
+    <Compile Include="Post.cs" />
     <Compile Include="Seance.cs" />
     <Compile Include="Users\Employee.cs" />
     <Page Include="AddEmployee.xaml">
@@ -106,6 +115,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="BookingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChangeEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FilmWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\MainButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

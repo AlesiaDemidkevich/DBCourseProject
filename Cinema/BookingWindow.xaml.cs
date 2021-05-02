@@ -19,9 +19,15 @@ namespace Cinema
     /// </summary>
     public partial class BookingWindow : Window
     {
+        int userID;
         public BookingWindow()
         {
             InitializeComponent();
+        }
+        public BookingWindow(int ID)
+        {
+            InitializeComponent();
+            userID = ID;
         }
     }
 }
