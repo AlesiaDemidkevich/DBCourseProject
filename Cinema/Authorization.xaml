@@ -53,7 +53,7 @@
                  Opacity="0.5"/>
             </PasswordBox.Effect>
         </PasswordBox>
-        <TextBox x:Name="passwordText2" HorizontalAlignment="Left" Height="45" Margin="93,379,0,0" TextWrapping="Wrap" FontSize="24" Text="" VerticalAlignment="Top" Width="300" Visibility="Hidden" BorderBrush="#FF454242">
+        <TextBox x:Name="passwordText2" HorizontalAlignment="Left" Height="45" Margin="93,339,0,0" TextWrapping="Wrap" FontSize="24" Text="" VerticalAlignment="Top" Width="300" Visibility="Hidden" BorderBrush="#FF454242">
             <TextBox.Effect>
                 <DropShadowEffect
                  ShadowDepth="4"

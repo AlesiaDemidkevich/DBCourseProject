@@ -95,6 +95,7 @@ namespace Cinema.Admin
         private void addEmployeeButton_Click(object sender, RoutedEventArgs e)
         {
             AddEmployee addEmployee = new AddEmployee(PostNameList);
+            addEmployee.Owner = this;
             addEmployee.Show();
         }
 
@@ -158,7 +159,7 @@ namespace Cinema.Admin
                             allEmployeeList.Add(cur_employee);
                         }
                     }
-                }
+                }                
             }
             catch (OracleException ex)
             {
@@ -266,7 +267,7 @@ namespace Cinema.Admin
             }
         }
 
-        public void GetPost()
+        public static void GetPost()
         {
             Post post;
             allPostList.Clear();
@@ -626,6 +627,12 @@ namespace Cinema.Admin
 
             }
             seanceTable.ItemsSource = sortSeanceList;
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            GetEmployee();
+            employeeTable.ItemsSource = allEmployeeList;
         }
     }
 }

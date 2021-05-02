@@ -16,5 +16,9 @@ namespace Cinema
         public string postName { get; set; }
         public string postAccessLevel { get; set; }
        
+        public override string ToString() 
+        {
+            return this.postName + "   " + this.postAccessLevel;
+        }
     }
 }
