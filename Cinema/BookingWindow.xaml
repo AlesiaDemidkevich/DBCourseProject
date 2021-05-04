@@ -5,8 +5,133 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cinema"
         mc:Ignorable="d"
-        Title="Окно продажи билетов" Height="650" Width="1000" Background="#2b2728" WindowStartupLocation="CenterScreen" FontSize="16"  ResizeMode="CanMinimize">
+        Title="Окно продажи билетов"  Height="626" Width="1000" Background="#2b2728" WindowStartupLocation="CenterScreen" FontSize="16"  ResizeMode="CanMinimize" >
     <Grid>
-        
+        <TabControl Grid.ColumnSpan="2"  x:Name="products" TabStripPlacement="Left" Margin="10,50,15,15" >
+            <TabItem x:Name="Booking" Margin="0,-2,-0.2,-2.4">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Width="165">
+                        <TextBlock Margin="10,15,80,15" Height="28" Width="133"><Run Text="Продажа билетов"/></TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel Margin="0,0,-0.2,2.6">
+                        <Grid Height="543" Margin="0,0,-0.2,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Добавить сотрудника" Foreground="White" HorizontalAlignment="Left" Margin="563,28,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Поиск сотрудника" Foreground="White" HorizontalAlignment="Left" Margin="46,29,0,0" VerticalAlignment="Top"/>
+                            <Rectangle Fill="#2b2728" HorizontalAlignment="Left" RadiusX="15" RadiusY="15" Height="493" Margin="20,14,0,0" VerticalAlignment="Top" Width="745" Opacity="0.5"/>
+                            <Button x:Name="addTicketButton" Content="Продать" Padding="0,0,0,5" Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Left" Margin="207,449,0,0" VerticalAlignment="Top" Width="112" Height="36" Click="addTicketButton_Click" />
+                            <Label Content="Дата" HorizontalAlignment="Left" Margin="106,27,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+                            <Label Content="Время" HorizontalAlignment="Left" Margin="106,96,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" RenderTransformOrigin="0.547,0.606"/>
+                            <Label Content="Зал" HorizontalAlignment="Left" Margin="106,165,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+                            <Label Content="Фильм" HorizontalAlignment="Left" Margin="106,229,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+                            <ComboBox  x:Name="ticketHallList" HorizontalAlignment="Left" Margin="106,198,0,0" VerticalAlignment="Top" Width="213" LostFocus="ticketHallList_LostFocus"  SelectionChanged="ticketHallList_SelectionChanged"/>
+                            <DatePicker x:Name="ticketDateChoose" HorizontalAlignment="Left" Margin="106,64,0,0" VerticalAlignment="Top" Width="213"  BorderBrush="#2b2728" Background="#2b2728" Height="31" CalendarClosed="ticketDateChoose_CalendarClosed" />
+                            <ComboBox  x:Name="ticketFilmList" HorizontalAlignment="Left" Margin="106,266,0,0" VerticalAlignment="Top" Width="213"  />
+                            <ComboBox  x:Name="ticketTimeList" HorizontalAlignment="Left" Margin="106,132,0,0" VerticalAlignment="Top" Width="213" LostFocus="ticketTimeList_LostFocus"/>
+                            <Label Content="Ряд" HorizontalAlignment="Left" Margin="106,303,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" />
+                            <Label Content="Место" HorizontalAlignment="Left" Margin="225,303,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White"/>
+                            <Rectangle Fill="White"  HorizontalAlignment="Left" Height="329" Margin="386,94,0,0"  VerticalAlignment="Top" Width="327"/>
+                            <Rectangle Fill="#FFEDEAEA"  HorizontalAlignment="Left" Height="28" Margin="386,66,0,0"  VerticalAlignment="Top" Width="327"/>
+                            <Border BorderBrush="Black" BorderThickness="5" Margin="386,60,57.8,114"/>
+                            <Button x:Name="printButton" Content="Печать" Padding="0,0,0,5" Template="{StaticResource ButtonTemplate}" HorizontalAlignment="Left" Margin="601,449,0,0" VerticalAlignment="Top" Width="112" Height="36" Click="printButton_Click"/>
+                            <Label x:Name="ticketNumberLabel" Margin="391,65,285.8,449" Content="Номер билета:" FontSize="12" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketNumberEnter" Margin="488,66,214.8,448" Content="" FontSize="12"/>
+                            <Label x:Name="ticketDateLabel" Margin="409,105,259.8,408" Content="Дата сеанса:" FontSize="16" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketDateEnter" Margin="514,105,137.8,409" Content="" FontSize="14"/>
+                            <Label x:Name="ticketTimeLabel" Margin="407,143,251.8,370" Content="Время сеанса:" FontSize="16" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketTimeEnter" Margin="523,145,128.8,368" Content="" FontSize="14" />
+                            <Label x:Name="ticketHallLabel" Margin="409,180,279.8,333" Content="Кинозал:" FontSize="16" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketHallEnter" Margin="490,181,161.8,333" Content="" FontSize="14"/>
+                            <Label x:Name="ticketRawLabel" Margin="409,220,324.8,293" Content="Ряд:" FontSize="16" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketRawEnter" Margin="453,221,283.8,293" Content="" FontSize="14"/>
+                            <Label x:Name="ticketPlaceLabel" Margin="519,219,194.8,294" Content="Место:" FontSize="16" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketPlaceEnter" Margin="577,222,159.8,292" Content="" FontSize="14"/>
+                            <Label x:Name="ticketTypeLabel" Margin="409,255,274.8,257" Content="Тип места:" FontSize="16" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketTypeEnter" Margin="497,257,137.8,257" Content="" FontSize="14"/>
+                            <Label x:Name="ticketCostLabel" Margin="596,65,132.8,449" Content="Цена:" FontSize="12" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketCostEnter" Margin="645,65,66.8,449" Content="" FontSize="12"/>
+                            <Label x:Name="ticketFilmLabel" Margin="409,289,279.8,222" Content="Фильм:" FontSize="16" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketFilmEnter" Margin="482,289,79.8,224" Content="" FontSize="14"/>
+                            <Label x:Name="ticketDurationLabel" Margin="409,321,197.8,189" Content="Продолжительность:" FontSize="16" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketDurationEnter" Margin="579,322,91.8,193" Content="" FontSize="14"/>
+                            <Label x:Name="ticketLimitLabel" Margin="409,354,251.8,155" Content="Ограничение:" FontSize="16" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketLimitEnter" Margin="522,355,141.8,159" Content="" FontSize="14"/>
+                            <Label x:Name="ticketEmployeeLabel" Margin="558,399,164.8,120" Content="Кассир:" FontSize="12" FontWeight="DemiBold"/>
+                            <Label x:Name="ticketEmployeeEnter" Margin="609,399,59.8,120" Content="" FontSize="12"/>
+                            <ComboBox  x:Name="Raw" HorizontalAlignment="Left" Margin="106,335,0,0" VerticalAlignment="Top" Width="92" SelectionChanged="Raw_SelectionChanged" MaxDropDownHeight="75"/>
+                            <ComboBox  x:Name="Place" HorizontalAlignment="Left" Margin="227,335,0,0" VerticalAlignment="Top" Width="92"  MaxDropDownHeight="75"/>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem x:Name="Seance" Margin="0,-3.2,-0.6,-0.6">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Width="169">
+                        <TextBlock Margin="10,15,80,15">Проданные билеты</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <Grid Height="550" Margin="0,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="101*"/>
+                                <RowDefinition Height="450*"/>
+                            </Grid.RowDefinitions>
+                            <Rectangle Fill="#500001" HorizontalAlignment="Left" RadiusX="10" RadiusY="10" Height="88" Margin="18,10,0,0" VerticalAlignment="Top" Width="743"  Grid.Row="0">
+                                <Rectangle.Effect>
+                                    <DropShadowEffect Color="Black" BlurRadius="25" Opacity="0.2"/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <DataGrid x:Name="ticketTable" RowBackground="Transparent" Margin="18,2.2,1.8,38.4" IsReadOnly="True" AutoGenerateColumns="False" HeadersVisibility="Column"  EnableRowVirtualization="False" CanUserResizeColumns="False" CanUserResizeRows="False" Grid.Row="1">
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn x:Name="ticketNumber"  FontSize="14" Header="Номер" Binding="{Binding Number}" Width="110" />
+                                    <DataGridTextColumn x:Name="ticketDate"  FontSize="14" Header="Дата" Binding="{Binding seance.seanceDate}" Width="110" />
+                                    <DataGridTextColumn x:Name="ticketTime"  FontSize="14" Header="Время" Binding="{Binding seance.seanceTime}" Width="100" />
+                                    <DataGridTextColumn x:Name="ticketHall" FontSize="14" Header="Зал" Binding="{Binding place.Hall.Name}" Width="80" />
+                                    <DataGridTextColumn x:Name="ticketRaw" FontSize="14" Header="Ряд" Binding="{Binding place.Raw}" Width="80" />
+                                    <DataGridTextColumn x:Name="ticketPlace" FontSize="14" Header="Место" Binding="{Binding place.Number}" Width="80" />
+                                    <DataGridTextColumn x:Name="ticketFilm"  FontSize="14" Header="Фильм" Binding="{Binding seance.seanceFilm.Name}" Width="130" />
+                                    <DataGridTextColumn x:Name="ticketCaost" FontSize="14" Header="Цена" Binding="{Binding Cost}" Width="60" />
+                                </DataGrid.Columns>
+                                <DataGrid.Resources>
+                                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="Background" Value="#2b2728" />
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                        <Setter Property="BorderThickness" Value="1 1 1 1"/>
+                                        <Setter Property="Margin" Value="-1,-1,0,0" />
+                                        <Setter Property="Height" Value="28" />
+                                        <Setter Property="Width" Value="auto"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <DataGrid.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#ffffff" Offset="0"/>
+                                        <GradientStop Color="#dbdbdb" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </DataGrid.Background>
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem x:Name="deleteTicket" Header="Вернуть билет" IsEnabled="True" Click="deleteTicket_Click"></MenuItem>
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+                            </DataGrid>
+                            <TextBox x:Name="Search" Margin="34,46,507.8,22.8" FontSize="16" />
+                            <Button x:Name="SearchButton" Margin="299,43,374.8,22.8" Content="Найти" Template="{StaticResource ButtonTemplate}" Padding="0,0,0,5" Click="SearchButton_Click"/>
+                            <Label Content="Введите номер билета" Foreground="White" HorizontalAlignment="Left" Margin="34,10,0,0" VerticalAlignment="Top"/>
+                        </Grid>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>            
+        </TabControl>
+        <Label Content="Кассир: " Foreground="White" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
+        <Label Content="ФИО" x:Name="fio" Foreground="White" HorizontalAlignment="Left" Margin="75,7,0,0" VerticalAlignment="Top"/>
+        <Button Content="Выход" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Margin="885,10,0,0" VerticalAlignment="Top" Width="87" Height="27" Padding="0,0,0,5" Click="Exit"/>
+
     </Grid>
 </Window>

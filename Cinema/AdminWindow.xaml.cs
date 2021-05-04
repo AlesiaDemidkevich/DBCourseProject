@@ -41,7 +41,7 @@ namespace Cinema.Admin
         public static BindingList<Genre> allGenreList = new BindingList<Genre>();
         public static BindingList<string> GenreNameList = new BindingList<string>();
 
-        int userID;
+        int userID;        
         public AdminWindow()
         {            
             InitializeComponent();
@@ -64,13 +64,14 @@ namespace Cinema.Admin
            
         }
 
-        public AdminWindow(int ID)
+        public AdminWindow(int ID, string FIO)
         {            
             InitializeComponent();
             //seancceDateChoose.Text = Convert.ToString(DateTime.Today);
             filmStartDate.Text = Convert.ToString(DateTime.Today);
             filmEndDate.Text = Convert.ToString(DateTime.Today);
-            userID = ID;
+            userID = ID;            
+            fio.Content = FIO;
             GetEmployee();
             employeeTable.ItemsSource = allEmployeeList;
             GetFilm();
@@ -124,8 +125,9 @@ namespace Cinema.Admin
         public void GetEmployee() {
             allEmployeeList.Clear();
             Employee cur_employee;
+           
             try
-            {
+            {                
                 using (OracleConnection connection = new OracleConnection(OracleDatabaseConnection.connection))
                 {
                     connection.Open();
@@ -147,7 +149,7 @@ namespace Cinema.Admin
 
                         foreach (DataRow row in dt.Rows)
                         {
-                            int ID = Convert.ToInt32(row["ID"]);
+                            int ID = Convert.ToInt32(row["ID"]);                            
                             string name = row["name"].ToString();
                             string secondname = row["secondName"].ToString();
                             string surname = row["surname"].ToString();
@@ -662,6 +664,13 @@ namespace Cinema.Admin
                 using (OracleConnection connection = new OracleConnection(OracleDatabaseConnection.connection))
                 {
                     connection.Open();
+                    OracleParameter ID_in = new OracleParameter
+                    {
+                        ParameterName = "ID_in",
+                        Direction = ParameterDirection.Input,
+                        OracleDbType = OracleDbType.Int32,
+                        Value = cur_emp.ID
+                    };                    
                     OracleParameter surname_in = new OracleParameter
                     {
                         ParameterName = "Surname_in",
@@ -694,7 +703,7 @@ namespace Cinema.Admin
                     {
                         command.Connection = connection;
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddRange(new OracleParameter[] { surname_in, name_in, secondName_in, phoneNumber_in});
+                        command.Parameters.AddRange(new OracleParameter[] { ID_in, surname_in, name_in, secondName_in, phoneNumber_in});
                         command.ExecuteNonQuery();
                         MessageBox.Show("Сотрудник удален!");
                     }

@@ -28,8 +28,8 @@
         <TextBox x:Name="filmYear" HorizontalAlignment="Left" Height="28" Margin="218,243,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
         <TextBox x:Name="filmDescription" HorizontalAlignment="Left" Height="137" Margin="61.8,391,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="237" Grid.Column="1" />
         <ComboBox  x:Name="filmGenre" HorizontalAlignment="Left" Margin="218,179,0,0" VerticalAlignment="Top" Width="205"/>
-        <DatePicker x:Name="filmStart" HorizontalAlignment="Left" Margin="221,436,0,0" VerticalAlignment="Top" Width="205"/>
-        <DatePicker x:Name="filmEnd" HorizontalAlignment="Left" Margin="222,500,0,0" VerticalAlignment="Top" Width="205"/>
+        <DatePicker x:Name="filmStart" HorizontalAlignment="Left" Margin="221,436,0,0" VerticalAlignment="Top" Width="205" SelectedDateChanged="filmStart_SelectedDateChanged"/>
+        <DatePicker x:Name="filmEnd" HorizontalAlignment="Left" Margin="222,500,0,0" VerticalAlignment="Top" Width="205" SelectedDateChanged="filmEnd_SelectedDateChanged"/>
         <Image x:Name="filmImg" HorizontalAlignment="Left" Height="160" Margin="61.8,123,0,0" VerticalAlignment="Top" Width="225" Grid.Column="1"/>
         <Label Content="Изображение" HorizontalAlignment="Left" Margin="55.8,84,0,0" VerticalAlignment="Top" Height="32" FontSize="18" FontWeight="SemiBold" Foreground="White" Grid.Column="1"/>
         <Button x:Name="filmImgAdd" Content="Загрузить" Template="{StaticResource ButtonTemplate2}" HorizontalAlignment="Left" Margin="168.8,297,0,0" FontSize="20" VerticalAlignment="Top" Width="130" Height="38"  Padding="0,0,0,5" Grid.Column="1" Click="filmImgAdd_Click" />

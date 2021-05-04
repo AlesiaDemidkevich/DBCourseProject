@@ -8,6 +8,12 @@ namespace Cinema
 {
     public class Seance
     {
+        public Seance(string date, string time, Film film)
+        {           
+            seanceDate = date;           
+            seanceTime = time;
+            seanceFilm = film;
+        }
         public Seance(int ID,string date,DateTime date2, string time, string hall, Film film, string capacity) {
             seanceID = ID;
             seanceDate = date;

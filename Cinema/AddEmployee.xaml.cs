@@ -30,7 +30,7 @@ namespace Cinema
             InitializeComponent();
             PostNameList = postList;
             employeePost.ItemsSource = PostNameList;
-            employeeBirthday.DisplayDateEnd = DateTime.Now;
+            employeeBirthday.DisplayDateEnd = DateTime.Now.AddYears(-18);
             employeeStart.DisplayDateEnd = DateTime.Now;
         }
 
@@ -178,6 +178,13 @@ namespace Cinema
         private void employeePost_GotFocus(object sender, RoutedEventArgs e)
         {
             checkPost();
+        }
+
+       
+        private void employeeBirthday_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            employeeStart.DisplayDateStart = new DateTime(employeeBirthday.SelectedDate.Value.Year + 18, employeeBirthday.SelectedDate.Value.Month, employeeBirthday.SelectedDate.Value.Day);
+            employeeStart.DisplayDateEnd = DateTime.Now;
         }
     }
 }

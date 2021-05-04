@@ -11,12 +11,26 @@ namespace Cinema
         public Hall() { 
 
         }
+        public Hall(string name)
+        {
+            Name = name;
+
+        }
         public Hall(string name, string capacity)
         {
             Name = name;
             Capacity = capacity;
+            
+        }
+        public Hall(string name, string capacity,string type)
+        {
+            Name = name;
+            Capacity = capacity;
+            Type = type;
         }
         public string Name { get; set; }
         public string Capacity { get; set; }
+        public string Type{ get; set; }
+        public int ID { get; set; }
     }
 }

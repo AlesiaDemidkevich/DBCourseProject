@@ -35,6 +35,7 @@ namespace Cinema
             seanceFilm.ItemsSource = FilmNameList;
             SeanceTimeList = seanceTimeList;
             seanceTime.ItemsSource = SeanceTimeList;
+            seanceDate.DisplayDateStart = DateTime.Now;
         }
 
         private void seanceAddButton_Click(object sender, RoutedEventArgs e)

@@ -20,5 +20,17 @@ namespace Cinema.Connection
                                           "(SERVICE_NAME = CINEMA.be.by)));" +
                                           "User Id=admin;Password=Alesya2001;";
 
+        public static string connection_meneger = "Data Source = " +
+                                          "(DESCRIPTION = " +
+                                          "(ADDRESS_LIST =  " +
+                                          "(ADDRESS = " +
+                                          "(PROTOCOL = TCP)" +
+                                          "(HOST = 192.168.56.105)" +
+                                          "(PORT = 1521)))" +
+                                          "(CONNECT_DATA = " +
+                                          "(SERVER = DEDICATED)" +
+                                          "(SERVICE_NAME = CINEMA.be.by)));" +
+                                          "User Id=meneger;Password=meneger123;";
+
     }
 }

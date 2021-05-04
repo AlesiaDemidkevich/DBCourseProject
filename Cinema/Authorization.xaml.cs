@@ -80,7 +80,11 @@ namespace Cinema
                         {
                             currentEmployee.Login = row["Login"].ToString();
                             currentEmployee.Password = row["Password"].ToString();
-                            currentEmployee.IDEmployee = Convert.ToInt32(row["IDEmployee"]);
+                            currentEmployee.IDEmployee = Convert.ToInt32(row["e_ID"]);
+                            currentEmployee.Name = row["Name"].ToString();
+                            currentEmployee.Secondname = row["SecondName"].ToString();
+                            currentEmployee.Surname = row["Surname"].ToString();
+                            currentEmployee.FIO = currentEmployee.Surname + " " + currentEmployee.Name.Substring(0, 1) + ". " + currentEmployee.Secondname.Substring(0, 1) + ".";
                         }
                     }
 
@@ -90,12 +94,12 @@ namespace Cinema
                     {
                         if (currUserPos == "Администратор")
                         {
-                            AdminWindow adminWindow = new AdminWindow(currentEmployee.IDEmployee);
+                            AdminWindow adminWindow = new AdminWindow(currentEmployee.IDEmployee,currentEmployee.FIO);
                             adminWindow.Show();
                             this.Close();
                         }
                         else {
-                            BookingWindow bookingWindow = new BookingWindow(currentEmployee.IDEmployee);
+                            BookingWindow bookingWindow = new BookingWindow(currentEmployee.IDEmployee,currentEmployee.FIO);
                             bookingWindow.Show();
                             this.Close();
                         }

@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -82,8 +83,10 @@
     </Compile>
     <Compile Include="Genre.cs" />
     <Compile Include="Hall.cs" />
+    <Compile Include="Place.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Seance.cs" />
+    <Compile Include="Ticket.cs" />
     <Compile Include="Users\Employee.cs" />
     <Page Include="AddEmployee.xaml">
       <SubType>Designer</SubType>

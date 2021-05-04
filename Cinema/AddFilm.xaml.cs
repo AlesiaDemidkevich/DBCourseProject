@@ -29,9 +29,10 @@ namespace Cinema
         BindingList<string> GenreNameList;
         public AddFilm(BindingList<string> genreNameList)
         {
-            InitializeComponent();
+            InitializeComponent();            
             GenreNameList = genreNameList;
             filmGenre.ItemsSource = GenreNameList;
+            
         }
 
         private void filmImgAdd_Click(object sender, RoutedEventArgs e)
@@ -159,6 +160,18 @@ namespace Cinema
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void filmStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+                filmEnd.DisplayDateStart = new DateTime(filmStart.SelectedDate.Value.Year, filmStart.SelectedDate.Value.Month, filmStart.SelectedDate.Value.Day);
+            
+        }
+
+        private void filmEnd_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            filmEnd.DisplayDateStart = new DateTime(filmStart.SelectedDate.Value.Year, filmStart.SelectedDate.Value.Month, filmStart.SelectedDate.Value.Day);
+            
         }
     }
 }

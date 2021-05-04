@@ -69,7 +69,7 @@
         <TextBox x:Name="employeeSalary" HorizontalAlignment="Left" Height="28" Margin="199,324,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" />
         <TextBox x:Name="employeeLogin" HorizontalAlignment="Left" Height="28" Margin="199,357,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" IsReadOnly="True" Background="Silver"/>
         <TextBox x:Name="employeePassword" HorizontalAlignment="Left" Height="28" Margin="199,390,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="205" IsReadOnly="True"  Background="Silver"/>
-        <DatePicker x:Name="employeeBirthday" HorizontalAlignment="Left" Margin="199,191,0,0" VerticalAlignment="Top" Width="205"/>
+        <DatePicker x:Name="employeeBirthday" HorizontalAlignment="Left" Margin="199,191,0,0" VerticalAlignment="Top" Width="205" SelectedDateChanged="employeeBirthday_SelectedDateChanged"/>
         <DatePicker x:Name="employeeStart" HorizontalAlignment="Left" Margin="199,225,0,0" VerticalAlignment="Top" Width="205"/>
         <ComboBox x:Name="employeePost" HorizontalAlignment="Left" Margin="199,258,0,0" VerticalAlignment="Top" Width="205" GotFocus="employeePost_GotFocus"/>
 

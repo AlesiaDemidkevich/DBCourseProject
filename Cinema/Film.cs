@@ -13,7 +13,12 @@ namespace Cinema
         public Film(string name) {
             Name = name;
         }
-
+        public Film(string name, string duration, string agelimit)
+        {
+            Name = name;
+            Duration = duration;
+            AgeLimit = agelimit;
+        }
         public Film(int ID,string name, string genre, string year, string duration, string agelimit, string start, string end, byte[] img, string description) {
             this.ID = ID;
             Name = name;

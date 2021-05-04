@@ -147,9 +147,9 @@
                     <StackPanel>
                         <Grid Height="580" Margin="0,0,0,0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="40"/>
                                 <RowDefinition Height="316.8"/>
-                                <RowDefinition Height="223*"/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Rectangle Fill="#500001" HorizontalAlignment="Left" RadiusX="10" RadiusY="10" Height="58" Margin="18,10,0,0" VerticalAlignment="Top" Width="743" Opacity="1" Grid.RowSpan="2">
                                 <Rectangle.Effect>
@@ -190,8 +190,8 @@
                                     </ContextMenu>
                                 </DataGrid.ContextMenu>
                             </DataGrid>
-                            <DatePicker x:Name="filmStartDate" HorizontalAlignment="Left" Focusable="False" Margin="124,24,0,0" VerticalAlignment="Top" Width="125"  SelectedDateFormat="Short" Grid.RowSpan="2" SelectedDateChanged="filmStartDate_SelectedDateChanged"/>
-                            <DatePicker x:Name="filmEndDate" HorizontalAlignment="Left" Focusable="False" Margin="305,24,0,0" VerticalAlignment="Top" Width="125"  SelectedDateFormat="Short" Grid.RowSpan="2" SelectedDateChanged="filmEndDate_SelectedDateChanged"/>
+                            <DatePicker x:Name="filmStartDate" BorderBrush="#2b2728" Background="#2b2728" HorizontalAlignment="Left" Focusable="False" Margin="124,24,0,0" VerticalAlignment="Top" Width="125"  SelectedDateFormat="Short" Grid.RowSpan="2" SelectedDateChanged="filmStartDate_SelectedDateChanged"/>
+                            <DatePicker x:Name="filmEndDate" BorderBrush="#2b2728" Background="#2b2728" HorizontalAlignment="Left" Focusable="False" Margin="305,24,0,0" VerticalAlignment="Top" Width="125"  SelectedDateFormat="Short" Grid.RowSpan="2" SelectedDateChanged="filmEndDate_SelectedDateChanged"/>
                             <Label Content="С" HorizontalAlignment="Left" Margin="101,24,0,0" VerticalAlignment="Top" Width="22" FontWeight="SemiBold" Foreground="White" Height="30" Grid.RowSpan="2"/>
                             <Label Content="По" HorizontalAlignment="Left" Margin="265,24,0,0" VerticalAlignment="Top" Width="30" FontWeight="SemiBold" Foreground="White" Height="30" Grid.RowSpan="2"/>
                             <Label Content="Прокат:" HorizontalAlignment="Left" Margin="28,22,0,0" VerticalAlignment="Top" Width="72" FontWeight="SemiBold" Foreground="White" Height="30" Grid.RowSpan="2"/>
@@ -203,7 +203,7 @@
         </TabControl>
         <Button Grid.Column="1" Content="Выход" HorizontalAlignment="Left"  Template="{StaticResource ButtonTemplate}" Margin="637,10,0,0" VerticalAlignment="Top" Width="87" Height="27" Padding="0,0,0,5" Click="Exit"/>
         <Label Content="Администратор: " Foreground="White" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
-        <Label Content="ФИО"   Foreground="White" HorizontalAlignment="Left" Margin="135,6,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="ФИО" x:Name="fio" Foreground="White" HorizontalAlignment="Left" Margin="135,6,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
