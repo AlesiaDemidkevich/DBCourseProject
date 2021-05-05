@@ -1,0 +1,1198 @@
+------------Drop Tables-------------------------
+drop sequence ticket_number;
+drop table Ticket;
+drop table Seance;
+drop table Film;
+drop table Genre;
+drop table Place;
+drop table Hall;
+drop table TypePlace;
+drop table Users;
+drop table Employee;
+drop table Post;
+commit;
+------------Create Tables-------------------------
+
+create table Post
+(
+ID number GENERATED ALWAYS AS IDENTITY (start with 1 increment by 1) PRIMARY KEY,
+positionName nvarchar2(50) not null,
+accessLevel number not null
+);
+
+create table Employee
+(
+ID number GENERATED ALWAYS AS IDENTITY (start with 1 increment by 1) PRIMARY KEY,
+name nvarchar2(50) not null,
+secondName nvarchar2(50),
+surname nvarchar2(50) not null,
+phoneNumber nvarchar2(50),
+birthday date not null,
+dateOfEnrollment date not null,
+salary number(8,2) not null,
+IDPost number not null,
+foreign key (IDPost)
+  references Post(ID) on delete cascade
+);
+
+create table Users
+(
+ID number GENERATED ALWAYS AS IDENTITY (start with 1 increment by 1) PRIMARY KEY,
+login nvarchar2(50),
+password nvarchar2(64),
+IDEmployee number not null,
+foreign key (IDEmployee)
+  references Employee(ID) on delete cascade
+);
+
+create table TypePlace
+(
+ID number GENERATED ALWAYS AS IDENTITY (start with 1 increment by 1) PRIMARY KEY,
+name nvarchar2(50) not null,
+cost number not null
+);
+
+create Table Hall
+(
+ID number GENERATED ALWAYS AS IDENTITY (start with 1 increment by 1) PRIMARY KEY,
+name nvarchar2(50) not null,
+capacity number not null,
+typeHall nvarchar2(50) not null
+);
+
+create table Place
+(
+ID number GENERATED ALWAYS AS IDENTITY (start with 1 increment by 1) PRIMARY KEY,
+rowNumber number not null,
+place number not null,
+IDHall number not null,
+foreign key (IDHall)
+  references Hall(ID) on delete cascade,
+IDTypePlace number not null,
+foreign key (IDTypePlace)
+  references TypePlace(ID) on delete cascade
+);
+
+create table Genre
+(
+ID number GENERATED ALWAYS AS IDENTITY (start with 1 increment by 1) PRIMARY KEY,
+name nvarchar2(50)not null
+);
+
+create table Film
+(
+ID number GENERATED ALWAYS AS IDENTITY (start with 1 increment by 1) PRIMARY KEY,
+name nvarchar2(50) not null,
+year nvarchar2(50) not null,
+duration nvarchar2(50) not null,
+startRelease date not null,
+endRelease date not null,
+description nvarchar2(500) not null,
+ageLimit number not null,
+IDGenre number not null,
+img blob,
+foreign key (IDGenre)
+  references Genre(ID) on delete cascade
+);
+
+create table Seance
+(
+ID number GENERATED ALWAYS AS IDENTITY (start with 1 increment by 1) PRIMARY KEY,
+dateSeance date not null,
+timeSeance nvarchar2(50) not null,
+IDHall number not null,
+foreign key (IDHall)
+  references Hall(ID) on delete cascade,
+IDFilm number not null,
+foreign key (IDFilm)
+  references Film(ID) on delete cascade
+);
+
+create table Ticket
+(
+ID number GENERATED ALWAYS AS IDENTITY (start with 1 increment by 1) PRIMARY KEY,
+cost number,
+IDSeance number not null,
+foreign key (IDSeance)
+  references Seance(ID) on delete cascade,
+IDPlace number not null,
+foreign key (IDPlace)
+  references Place(ID) on delete cascade,
+  IDEmployee number not null,
+foreign key (IDEmployee)
+  references Employee(ID) on delete cascade,
+ticketNumber int default ticket_number.nextval not null
+);
+
+commit;
+---------------Insert---------------------
+
+            ---Post---
+insert into Post(positionName, accessLevel) values ('Администратор',1);
+insert into Post(positionName, accessLevel) values ('Кассир',2);
+insert into Post(positionName, accessLevel) values ('Бухгалтер',2);
+insert into Post(positionName, accessLevel) values ('Менеджер по рекламе',2);
+insert into Post(positionName, accessLevel) values ('Киноинженер',2);
+insert into Post(positionName, accessLevel) values ('Электрик',3);
+insert into Post(positionName, accessLevel) values ('Уборщик',3);
+insert into Post(positionName, accessLevel) values ('Бармен',3);
+insert into Post(positionName, accessLevel) values ('Охранник',3);
+insert into Post(positionName, accessLevel) values ('Контролер',3);
+insert into Post(positionName, accessLevel) values ('Киномеханик',3);
+commit;
+            ---TypePlace---            
+insert into TypePlace(name,cost) values ('кинокресло',25);
+insert into TypePlace(name,cost) values ('диван',40);
+commit;
+            ---Genre---
+insert into Genre(name) values('боевик');
+insert into Genre(name) values('вестерн');
+insert into Genre(name) values('детектив');
+insert into Genre(name) values('драма');
+insert into Genre(name) values('исторический');
+insert into Genre(name) values('комедия');
+insert into Genre(name) values('мелодрама');
+insert into Genre(name) values('мюзикл');
+insert into Genre(name) values('мультфильм');
+insert into Genre(name) values('политический');
+insert into Genre(name) values('приключенческий');
+insert into Genre(name) values('сказка');
+insert into Genre(name) values('трагедия');
+insert into Genre(name) values('триллер');
+insert into Genre(name) values('фантастический');
+insert into Genre(name) values('фильм ужасов');
+insert into Genre(name) values('фильм-катастрофа');
+commit;
+            ---Hall---
+insert into Hall(name,capacity, typeHall) values ('Зал 1',210,'малый');
+insert into Hall(name,capacity, typeHall) values ('Зал 2',250,'средний');
+insert into Hall(name,capacity, typeHall) values ('Зал 3',310,'большой');
+commit;
+            ---Place---
+            ---ЗАЛ1---
+declare v number;
+begin
+v:=1;
+  for cur in 1..10
+    loop
+     for cur2 in 1..20
+        loop
+          insert into Place(rowNumber,place,IDHall,IDTypePlace) values (cur,cur2,1,1);
+        end loop;
+    end loop;
+end;
+
+declare v number;
+begin
+  for cur in 1..10
+    loop    
+       insert into Place(rowNumber,place,IDHall,IDTypePlace) values (11,cur,1,2);
+    end loop;
+end;
+
+              ---ЗАЛ2---
+declare v number;
+begin
+  for cur in 1..12
+    loop
+     for cur2 in 1..20
+        loop
+          insert into Place(rowNumber,place,IDHall,IDTypePlace) values (cur,cur2,2,1);
+        end loop;
+    end loop;
+end;
+
+declare v number;
+begin
+  for cur in 1..10
+    loop    
+       insert into Place(rowNumber,place,IDHall,IDTypePlace) values (13,cur,2,2);
+    end loop;
+end;
+
+              ---ЗАЛ3---
+declare v number;
+begin
+  for cur in 1..15
+    loop
+     for cur2 in 1..20
+        loop
+          insert into Place(rowNumber,place,IDHall,IDTypePlace) values (cur,cur2,3,1);
+        end loop;
+    end loop;
+end;
+
+declare v number;
+begin
+  for cur in 1..10
+    loop    
+       insert into Place(rowNumber,place,IDHall,IDTypePlace) values (16,cur,3,2);
+    end loop;
+end;
+commit;
+
+select count(ID) from Place;
+select * from Place;
+                  ---Employee---
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Алеся','Степановна','Демидкевич','+375333773696',TO_DATE( '03-11-2001', 'MM-DD-YYYY'),TO_DATE( '12-21-2020', 'MM-DD-YYYY'),2000.00,1);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Ирина','Сергеевна','Соколова','+375294569832',TO_DATE( '06-17-1998', 'MM-DD-YYYY'),TO_DATE( '10-12-2018', 'MM-DD-YYYY'),1000.00,2);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Марина','Александровна','Сергеева','+375293214875',TO_DATE( '11-26-1996', 'MM-DD-YYYY'),TO_DATE( '02-14-2019', 'MM-DD-YYYY'),1000.00,2);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Ольга','Николаевна','Иванова','+375339654875',TO_DATE( '03-11-1987', 'MM-DD-YYYY'),TO_DATE( '10-16-2018', 'MM-DD-YYYY'),1500.00,3);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Олег','Константинович','Петров','+375336125893',TO_DATE( '09-27-1999', 'MM-DD-YYYY'),TO_DATE( '07-13-2020', 'MM-DD-YYYY'),1200.00,4);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Иван','Викторович','Дашкевич','+375291469875',TO_DATE( '08-13-1995', 'MM-DD-YYYY'),TO_DATE( '08-14-2018', 'MM-DD-YYYY'),1000.00,5);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Петр','Владиславович','Кульбацкий','+375294632879',TO_DATE( '04-28-1972', 'MM-DD-YYYY'),TO_DATE( '05-28-2019', 'MM-DD-YYYY'),800.00,6);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Анастасия','Ивановна','Романова','+375332156987',TO_DATE( '02-12-1991', 'MM-DD-YYYY'),TO_DATE( '02-11-2021', 'MM-DD-YYYY'),650.00,7);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Кирилл','Сергеевич','Сомойлов','+375331648957',TO_DATE( '12-05-1999', 'MM-DD-YYYY'),TO_DATE( '05-12-2020', 'MM-DD-YYYY'),1200.00,8);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Андрей','Борисович','Климчук','+375336498752',TO_DATE( '12-14-1985', 'MM-DD-YYYY'),TO_DATE( '07-07-2019', 'MM-DD-YYYY'),1100.00,9);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Сергей','Андреевич','Остапчук','+375336412752',TO_DATE( '04-09-1985', 'MM-DD-YYYY'),TO_DATE( '04-13-2019', 'MM-DD-YYYY'),1100.00,9);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Зоя','Евгеньевна','Толкач','+375338216945',TO_DATE( '11-25-1979', 'MM-DD-YYYY'),TO_DATE( '07-12-2019', 'MM-DD-YYYY'),900.00,10);
+insert into Employee(name,secondName,surname,phoneNumber,birthday,dateOfEnrollment,salary,IDPost) 
+  values ('Евгений','Сергеевич','Ломакин','+375331346986',TO_DATE( '02-23-1972', 'MM-DD-YYYY'),TO_DATE( '06-02-2020', 'MM-DD-YYYY'),800.00,11);
+
+commit;
+
+              ---Film---
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit, img,IDGenre)
+  values('Властелин колец',EXTRACT (YEAR FROM DATE '2001-01-01'),'3.10',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Братство распалось, но Кольцо Всевластья должно быть уничтожено. Фродо и Сэм вынуждены доверить свои жизни Голлуму, который взялся провести их к вратам Мордора. Громадная Армия Сарумана приближается: члены братства и их союзники готовы принять бой. Битва за Средиземье продолжается.',
+  12,empty_blob(),15);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit, img,IDGenre)
+  values('Гнев человеческий',EXTRACT (YEAR FROM DATE '2004-01-01'),'3.10',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Эйч — загадочный и холодный на вид джентльмен, но внутри него пылает жажда справедливости. Преследуя свои мотивы, он внедряется в инкассаторскую компанию, чтобы выйти на соучастников серии многомиллионных ограблений, потрясших Лос-Анджелес. В этой запутанной игре у каждого своя роль, но под подозрением оказываются все. Виновных же обязательно постигнет гнев человеческий.',
+  18, empty_blob(),1);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit, img,IDGenre)
+  values('Великий',EXTRACT (YEAR FROM DATE '2020-01-01'),'2.00',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  '1970-е. Военный фотограф Юджин Смит по заданию журнала Life возвращается в Японию, где в небольшом прибрежном городке Минамата разворачивается экологическая катастрофа. Именно оттуда Смит сделает репортаж, который потрясёт весь мир, снимет величайшие кадры в истории фотографии и пройдет трудный путь преодоления и познания себя.',
+  18,empty_blob(),4);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Любовь и монстры',EXTRACT (YEAR FROM DATE '2020-01-01'),'1.35',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Теплое море, жаркое солнце, жгучая красотка в полицейской форме и бутылка вина – это все, что нужно для счастья Юре Скворцову, приехавшему на курорт залечивать душевные раны. Конечно, на любом курорте бывает мёртвый сезон. Но только здесь, в Болгарии, он наступает в буквальном смысле. ',
+  16,empty_blob(),6);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Нечестивые',EXTRACT (YEAR FROM DATE '2021-01-01'),'1.50',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'После видения Девы Марии девушка Элис обретает способность исцеления больных. Слухи о творимых ею чудесах привлекают огромное количество людей со всех концов света. Среди них — скандальный журналист, который надеется с помощью сенсации спасти свою карьеру. Ему предстоит выяснить, является ли происходящее божественным провидением или Алисой управляют зловещие силы.',
+  18,empty_blob(),16);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Европа',EXTRACT (YEAR FROM DATE '2013-01-01'),'1.54',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'В 1945 году молодой американец немецкого происхождения Леопольд Кесслер считал, что война закончилась, и приехал из Америки в оккупированную союзниками Германию с самыми лучшими намерениями. Он устроился работать проводником в железнодорожной компании и думал, что теперь жизнь пойдет как по рельсам…',
+  18,empty_blob(),14);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Чернобыль',EXTRACT (YEAR FROM DATE '2021-01-01'),'2.21',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Алексей Карпушин — обычный молодой советский парень, пожарный в Припяти, который впервые начинает строить планы длиннее, чем на выходные или отпуск — он влюбляется в парикмахера Олю. У Оли есть маленький сын Леша, но Алексей намерен никогда больше не повторять прежних ошибок: он признается Оле в своих чувствах, и все вместе они планируют переехать к морю. Авария на Чернобыльской АЭС ставит под угрозу мечту Алексея и жизни всех тех, кто ему дорог.',
+  12,empty_blob(),5);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Гениальное ограбление',EXTRACT (YEAR FROM DATE '2021-01-01'),'2.03',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Юный гений Том вместе с харизматичным торговцем предметами искусства Уолтером ввязываются в смертельно опасную авантюру. Пока все жители Мадрида отвлечены Чемпионатом мира по футболу, у парней есть всего 90 минут, чтобы ограбить самый защищенный в мире банк, используя единственное оружие – мозг.',
+  16,empty_blob(),11);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('От винта',EXTRACT (YEAR FROM DATE '2013-01-01'),'1.28',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Современные электролеты пришли на смену старой дизельной технике, и Витязь был отправлен в запас. Но когда на город нападают пришельцы, которые охотятся за энергией, Витязь вновь взмывает в небо, чтобы спасти землю. На новых виражах ему помогают старые добрые друзья и лайнер Молния, в которую он снова влюбляется как мальчишка.',
+  6,empty_blob(),9);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Заброшенный',EXTRACT (YEAR FROM DATE '2015-01-01'),'1.30',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Наёмный убийца Джон Генри оставляет своё кровавое ремесло и возвращается в родной город, надеясь восстановить отношения с собственным отцом.',
+  18,empty_blob(),2);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Элементарно',EXTRACT (YEAR FROM DATE '2012-01-01'),'1.30',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Британский сыщик Шерлок Холмс — бывший наркоман, который был отправлен в Нью-Йорк на лечение в реабилитационный центр, а по завершении лечения остался в Бруклине как консультант нью-йоркской полиции. В расследованиях ему помогает его компаньон-наблюдатель доктор Джоан Ватсон, нанятая его отцом.',
+  16,empty_blob(),3);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Будь моим Кириллом',EXTRACT (YEAR FROM DATE '2021-01-01'),'1.36',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Неуверенная в себе девушка Саша врет семье, что встречается с красавчиком Кириллом, хотя он — всего лишь ее тренер по бегу, с которым она боится даже заговорить. Муж сестры Паша знает правду, но у него и своих проблем хватает — у них с женой уже год не было секса. Записавшись вместе на беготерапию, Саша и Паша решают, что смогут убежать от проблем вместе.',
+  16,empty_blob(),7);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Бурлеск',EXTRACT (YEAR FROM DATE '2010-01-01'),'1.59',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Али - молодая амбициозная девушка из маленького городка с чудесным голосом, совсем недавно потеряла своих родителей. Теперь никому не нужная, она отправляется в большой город Лос-Анджелес, где устраивается на работу у Тесс, хозяйки ночного клуба «Бурлеск». За короткое время она находит друзей, поклонников и любовь всей своей жизни. Но может ли сказка длиться вечно? Ведь немало людей завидует этой прекрасной танцовщице...',
+  18,empty_blob(),8);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Снежная королева',EXTRACT (YEAR FROM DATE '2012-01-01'),'1.20',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'В стремлении сотворить Новый мир — холодный и практичный, где четкость линий призвана заменить эмоции, а северный ветер должен остудить людские души, Снежная Королева избавляется от всех представителей творческих профессий. Маленькой и смелой Герде, отправившейся в опасное путешествие, чтобы спасти своего брата Кая, предстоит столкнуться с этим холодным миром Снежной Королевы. ',
+  6,empty_blob(),12);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Экипаж',EXTRACT (YEAR FROM DATE '2016-01-01'),'2.17',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'В центре сюжета – молодой талантливый летчик Алексей Гущин, который вместе со своим экипажем должен совершить подвиг и спасти множество жизней.',
+  16,empty_blob(),13);
+insert into Film(name,year,duration,startRelease,endRelease,description,ageLimit,img,IDGenre)
+  values('Дело храбрых',EXTRACT (YEAR FROM DATE '2017-01-01'),'2.17',TO_DATE( '05-01-2021', 'MM-DD-YYYY'),TO_DATE( '05-08-2021', 'MM-DD-YYYY'),
+  'Фильм-катастрофа по мотивам реальных событий аризонских пожаров 2013 года, которые напугали всю Америку и стали самым масштабным трагическим потрясением после атаки на «башни-близнецы» 11 сентября. ',
+  16,empty_blob(),17);
+
+commit;
+              ---Seance---
+              ---01.05.2021---
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'7.00',1,9);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'7.00',2,6);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'7.00',3,16);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'12.00',1,14);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'12.00',2,12);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'12.00',3,8);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'17.00',1,2);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'17.00',2,3);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'17.00',3,4);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'22.00',1,1);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'22.00',2,15);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-01-2021', 'MM-DD-YYYY'),'22.00',3,7);
+              ---02.05.2021---
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'7.00',1,5);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'7.00',2,8);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'7.00',3,15);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'12.00',1,4);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'12.00',2,2);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'12.00',3,6);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'17.00',1,11);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'17.00',2,12);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'17.00',3,7);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'22.00',1,3);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'22.00',2,9);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-02-2021', 'MM-DD-YYYY'),'22.00',3,13);
+              ---03.05.2021---
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'7.00',1,5);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'7.00',2,8);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'7.00',3,15);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'12.00',1,4);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'12.00',2,2);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'12.00',3,6);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'17.00',1,11);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'17.00',2,12);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'17.00',3,7);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'22.00',1,3);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'22.00',2,9);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-03-2021', 'MM-DD-YYYY'),'22.00',3,13);
+              ---04.05.2021---
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'7.00',1,9);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'7.00',2,6);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'7.00',3,16);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'12.00',1,14);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'12.00',2,12);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'12.00',3,8);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'17.00',1,2);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'17.00',2,3);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'17.00',3,4);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'22.00',1,1);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'22.00',2,15);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-04-2021', 'MM-DD-YYYY'),'22.00',3,7);
+              ---05.05.2021---
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'7.00',1,11);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'7.00',2,6);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'7.00',3,12);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'12.00',1,14);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'12.00',2,9);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'12.00',3,4);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'17.00',1,16);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'17.00',2,3);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'17.00',3,5);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'22.00',1,1);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'22.00',2,2);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-05-2021', 'MM-DD-YYYY'),'22.00',3,7);
+              ---06.05.2021---
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'7.00',1,16);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'7.00',2,6);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'7.00',3,5);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'12.00',1,7);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'12.00',2,9);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'12.00',3,4);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'17.00',1,2);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'17.00',2,1);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'17.00',3,9);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'22.00',1,3);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'22.00',2,2);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-06-2021', 'MM-DD-YYYY'),'22.00',3,14);
+              ---07.05.2021---
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'7.00',1,5);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'7.00',2,6);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'7.00',3,9);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'12.00',1,7);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'12.00',2,1);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'12.00',3,4);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'17.00',1,2);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'17.00',2,16);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'17.00',3,14);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'22.00',1,3);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'22.00',2,8);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-07-2021', 'MM-DD-YYYY'),'22.00',3,6);
+              ---08.05.2021---
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'7.00',1,16);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'7.00',2,6);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'7.00',3,5);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'12.00',1,7);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'12.00',2,9);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'12.00',3,4);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'17.00',1,2);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'17.00',2,1);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'17.00',3,9);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'22.00',1,3);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'22.00',2,2);
+insert into Seance(dateSeance,timeSeance,IDHall,IDFilm) values (TO_DATE( '05-08-2021', 'MM-DD-YYYY'),'22.00',3,14);
+              ---Ticket---
+insert into Ticket(cost,IDSeance,IDPlace,IDEmployee) values (25,2,1,2);
+
+select  * from Ticket;
+--------------Sequences--------
+create sequence ticket_number
+  minvalue 0
+  maxvalue 3080
+  start with 0
+  Increment by 1
+  cache 20
+--------------Views------------
+create or replace view PostList as
+  select * from Post;
+  
+create or replace view TicketInfo as
+Select t.ID as ID, t.TicketNumber ticketNumber, s.dateSeance DateSeance,  s.timeSeance TimeSeance,f.name FilmName, f.duration FilmDuration, f.ageLimit FilmLimit, g.name Genre,h.name Hall, p.rowNumber RawNumber,p.place Place, tp.name typePlace, tp.cost Cost from 
+              Ticket t inner join Seance s on t.IDSeance = s.ID 
+                       inner join Film f on s.IDFilm = f.ID
+                       inner join Genre g on f.IDGenre = g.ID
+                       inner join Place p on t.IDPlace = p.ID
+                       inner join TypePlace tp on p.IDTypePlace = tp.ID
+                       inner join Hall h on p.IDHall = h.ID
+                       inner join Employee e on t.IDEmployee = e.ID
+                       inner join Post ps on e.IDPost = ps.ID;
+
+create or replace view EmployeeInfo as
+select u.ID as Users, u.Login, u.Password, e.ID, e.name,e.secondname,e.surname,e.phoneNumber,e.birthday,e.dateOfEnrollment,e.salary,p.positionName from Employee e inner join Post p on e.IDPost = p.ID left outer join Users u on e.Id = u.IDEmployee;
+
+create or replace view shortFilmInfo as
+select f.ID as ID ,f.name Name, g.name Genre, f.year, f.duration, f.ageLimit, f.startRelease, f.EndRelease, f.Img, f.description from Film f inner join Genre g on f.IDGenre = g.ID;
+
+create or replace view SeanceList as
+  select s.ID as ID, s.DateSeance DateSeance, s.Timeseance Timeseance, h.name HallName, h.Capacity HallCapacity, f.name FilmName from Seance s inner join film f on s.IDFilm = f.ID inner join Hall h on s.IDHall = h.ID order by s.ID;
+--------------------Index-----------------------
+
+create index access_level on Post(accessLevel);
+create index row_index on Place(rowNumber);
+create index place_index on Place(place);
+
+--------------Procedures------------
+
+              ---Registration---
+create or replace procedure addUserRecord(in_login in Users.Login%type, in_password in Users.Password%type, in_employeeId in Users.IDEmployee%type) 
+is 
+  user_exists number; 
+  user_id Users.id%TYPE; 
+  curr_user_exists exception; 
+  encode_key nvarchar2(2000) := 'Users09876543210'; 
+  encode_mode number; 
+  encode_pass raw(2000); 
+begin 
+  encode_mode := DBMS_CRYPTO.ENCRYPT_AES128 + DBMS_CRYPTO.CHAIN_CBC + DBMS_CRYPTO.PAD_PKCS5; 
+select count(*) into user_exists from Users where Users.Login = in_login; 
+  encode_pass := DBMS_CRYPTO.ENCRYPT(utl_i18n.string_to_raw (in_password, 'AL32UTF8'), 
+  encode_mode, utl_i18n.string_to_raw (encode_key, 'AL32UTF8')); 
+
+if user_exists != 0 then raise curr_user_exists; 
+else 
+  insert into Users (Login,Password,IDEmployee) values (in_login,encode_pass,in_employeeId); 
+end if; 
+exception 
+when curr_user_exists then 
+  raise_application_error(-20000, 'This user is exists'); 
+end addUserRecord; 
+
+begin 
+ADDUSERRECORD('Администратор','Administrator123',1); 
+end;
+
+begin 
+ADDUSERRECORD('Соколова','Sokolova12345678',2); 
+end; 
+
+select * from Users;
+
+              ---Authorithation---
+create or replace function get_user_cursor(in_login in varchar2, in_password in varchar2) 
+return sys_refcursor 
+as 
+  user_cur sys_refcursor; 
+begin 
+  open user_cur for select u.Login as Login,u.Password, u.ID u_ID, e.ID e_ID, e.Name, e.SecondName, e.Surname from Users u inner join Employee e on u.IDEmployee = e.ID where Login = in_login and Password = in_password; 
+  return user_cur; 
+end get_user_cursor; 
+
+create or replace procedure findUser (in_login in Users.Login%type, in_password in Users.Password%type,user_cur out sys_refcursor) 
+is 
+  invalid_user exception; 
+  check_count number; 
+  encode_key varchar2(2000) := 'Users09876543210'; 
+  encode_mode number; 
+  encode_pass raw(2000); 
+BEGIN 
+  encode_mode := DBMS_CRYPTO.ENCRYPT_AES128 + DBMS_CRYPTO.CHAIN_CBC + DBMS_CRYPTO.PAD_PKCS5; 
+  encode_pass := DBMS_CRYPTO.ENCRYPT(utl_i18n.string_to_raw (in_password, 'AL32UTF8'), encode_mode, 
+  utl_i18n.string_to_raw (encode_key, 'AL32UTF8')); 
+
+select count(*) into check_count from Users where Login = in_login and Password = encode_pass; 
+if check_count != 0 
+  then user_cur := get_user_cursor(in_login, encode_pass); 
+else 
+  raise invalid_user; 
+end if; 
+  DBMS_OUTPUT.ENABLE(); 
+  DBMS_SQL.RETURN_RESULT(user_cur); 
+exception 
+when invalid_user then 
+  RAISE_APPLICATION_ERROR(-20005, 'Please, check that the information you entered is correct'); 
+end findUser; 
+
+declare 
+us_cursor sys_refcursor;
+begin
+findUser('Администратор','Administrator123',us_cursor);
+end;
+              ---getEmployeeList---
+CREATE or replace PROCEDURE getEmployeeList(employeeList out sys_refcursor) 
+IS 
+begin 
+open employeeList for select * from EmployeeInfo; 
+end getEmployeeList;
+
+declare
+employeeList sys_refcursor;
+begin
+getEmployeeList(employeeList);
+dbms_output.enable(); 
+dbms_sql.return_result(employeeList); 
+end;
+    
+            ---getFilmInfo---
+CREATE or replace PROCEDURE getFilmInfo(us_cur out sys_refcursor) 
+IS 
+begin 
+open us_cur for select * from shortFilmInfo; 
+end getFilmInfo;
+
+declare
+us_cur sys_refcursor;
+begin
+getFilmInfo(us_cur);
+dbms_output.enable(); 
+dbms_sql.return_result(us_cur); 
+end;
+
+            ---getSeanceList---
+CREATE or replace PROCEDURE getSeanceList(us_cur out sys_refcursor) 
+IS 
+begin 
+open us_cur for select * from SeanceList order by HallName; 
+end getSeanceList;
+
+declare
+us_cur sys_refcursor;
+begin
+getSeanceList(us_cur);
+dbms_output.enable(); 
+dbms_sql.return_result(us_cur); 
+end;
+
+             ---getHallList---
+CREATE or replace PROCEDURE getHallList(us_cur out sys_refcursor) 
+IS 
+begin 
+open us_cur for select * from Hall order by ID; 
+end getHallList;
+
+declare
+us_cur sys_refcursor;
+begin
+getHallList(us_cur);
+dbms_output.enable(); 
+dbms_sql.return_result(us_cur); 
+end;
+
+             ---getPostList---
+CREATE or replace PROCEDURE getPostList(us_cur out sys_refcursor) 
+IS 
+begin 
+open us_cur for select * from Post; 
+end getPostList;
+
+declare
+us_cur sys_refcursor;
+begin
+getPostList(us_cur);
+dbms_output.enable(); 
+dbms_sql.return_result(us_cur); 
+end;
+
+             ---getGenreList---
+CREATE or replace PROCEDURE getGenreList(us_cur out sys_refcursor) 
+IS 
+begin 
+open us_cur for select * from Genre; 
+end getGenreList;
+
+declare
+us_cur sys_refcursor;
+begin
+getGenreList(us_cur);
+dbms_output.enable(); 
+dbms_sql.return_result(us_cur); 
+end;
+
+            ---addEmployeeAndUser---
+CREATE or replace PROCEDURE addEmployee(Surname_in in Employee.Surname%TYPE, Name_in in Employee.Name%TYPE, SecondName_in in Employee.SecondName%TYPE, Birthday_in in Employee.Birthday%TYPE, DateOfEnrollment_in in Employee.DateOfEnrollment%TYPE, Post_id in Employee.IdPost%TYPE,
+PhoneNumber_in in Employee.PhoneNumber%TYPE, Salary_in in Employee.Salary%TYPE)
+IS
+employee_id int;
+emp_exists number;
+curr_emp_exists exception;
+begin
+SELECT COUNT(*) into emp_exists from Employee where Employee.Surname = Surname_in and Employee.Name = Name_in and Employee.SecondName = SecondName_in and Employee.PhoneNumber = PhoneNumber_in;
+if emp_exists != 0 
+  then raise curr_emp_exists;
+else 
+  insert into Employee(Surname,Name, SecondName, IDPost,Birthday, DateOfEnrollment,PhoneNumber,Salary) values
+          (Surname_in,Name_in, SecondName_in, Post_id,Birthday_in, DateOfenrollment_in,PhoneNumber_in,Salary_in);
+end if;
+exception
+    when curr_emp_exists then
+        raise_application_error(-20002, 'Такой сотрудник уже есть');
+commit;
+end addEmployee;
+
+CREATE or replace PROCEDURE addEmployeeAndUser(Surname_in in Employee.Surname%TYPE, Name_in in Employee.Name%TYPE, SecondName_in in Employee.SecondName%TYPE, Birthday_in in Employee.Birthday%TYPE, DateOfEnrollment_in in Employee.DateOfEnrollment%TYPE, Post_in in Post.PositionName%TYPE,
+PhoneNumber_in in Employee.PhoneNumber%TYPE, Salary_in in Employee.Salary%TYPE, Login_in in Users.Login%TYPE, Password_in in Users.Password%TYPE)
+is
+encode_key nvarchar2(2000) := 'Users09876543210';
+encode_mode number;
+encode_pass raw(2000);
+user_id int;
+user_employee_id int;
+post_al int;
+user_exists number;
+curr_user_exists exception;
+curr_level_exists exception;
+Post_id number;
+begin
+  begin
+  select Id into Post_id from Post where PositionName = Post_in;
+  end;
+    encode_mode := DBMS_CRYPTO.ENCRYPT_AES128 + DBMS_CRYPTO.CHAIN_CBC + DBMS_CRYPTO.PAD_PKCS5;
+    encode_pass := DBMS_CRYPTO.ENCRYPT(utl_i18n.string_to_raw (Password_in, 'AL32UTF8'),
+    encode_mode, utl_i18n.string_to_raw (encode_key, 'AL32UTF8'));
+        
+addEmployee(Surname_in,Name_in, SecondName_in, Birthday_in, DateOfEnrollment_in,  Post_id, PhoneNumber_in, Salary_in);
+
+select MAX(Id) into user_id from Employee;
+select AccessLevel into post_al from Post where PositionName = Post_in;
+
+if(post_al = 1 or post_al = 2) then
+        insert into Users(Login, Password, IDEmployee) values (Login_in, encode_pass, user_id);
+else 
+        insert into Users(Login, Password, IDEmployee) values (Login_in, encode_pass, user_id);
+        select MAX(Id) into user_employee_id from Employee;
+        delete from Users where IDEmployee = user_employee_id;
+end if;
+
+exception
+    when curr_user_exists then
+          raise_application_error(-20002, 'Такая учетная запись уже существует');
+    when curr_level_exists then
+          raise_application_error(-20002, 'Нельзя создавать учетную запись для сотрудника с низким уровнем доступа');
+commit;
+end addEmployeeAndUser;
+
+                  ---addSeance---
+CREATE or replace PROCEDURE addSeance(Date_in in Seance.DateSeance%TYPE, Time_in in Seance.TimeSeance%TYPE, Hall_in in Hall.Name%TYPE,Film_in in Film.Name%TYPE)
+is
+hall_id int;
+film_id int;
+seance_exist int;
+curr_seance_exists exception;
+begin
+  begin
+  select Id into hall_id from Hall where name = hall_in;
+  select Id into film_id from Film where name = film_in;
+  end;    
+        
+SELECT COUNT(*) into seance_exist from Seance s where s.DateSeance = Date_in and s.Timeseance = Time_in and s.IDHall = hall_id;
+if seance_exist != 0 
+  then raise curr_seance_exists;
+else 
+  insert into Seance(DateSeance,TimeSeance, IDHall, IDFilm) values
+          (Date_in,Time_in, hall_id, film_id);
+end if;
+exception
+    when curr_seance_exists then
+        raise_application_error(-20002, 'Такой сеанс уже существует!');
+commit;
+end addSeance; 
+
+                ---addFilm---
+CREATE or replace PROCEDURE addFilm(Name_in in Film.Name%TYPE, Year_in in Film.Year%TYPE, Genre_in in Genre.Name%TYPE, Duration_in in Film.Duration%TYPE, Limit_in in Film.AgeLimit%Type, Description_in in Film.Description%TYPE, Start_in in Film.StartRelease%TYPE,End_in in Film.EndRelease%TYPE,Img_in in Film.IMG%TYPE)
+is
+genre_id int;
+film_exist int;
+curr_film_exists exception;
+begin
+  begin
+  select Id into genre_id from Genre where name = Genre_in;
+  end;    
+        
+SELECT COUNT(*) into film_exist from Film f where f.Name = Name_in and f.Year = Year_in and f.IDGenre = genre_id;
+if film_exist != 0 
+  then raise curr_film_exists;
+else 
+  insert into Film(Name,Year, Duration, StartRelease, EndRelease, Description, AgeLimit, IDGenre,IMG) values
+          (Name_in,Year_in,Duration_in,Start_in,End_in,Description_in,Limit_in,genre_id,Img_in);
+end if;
+exception
+    when curr_film_exists then
+        raise_application_error(-20002, 'Такой фильм уже существует!');
+commit;
+end addFilm; 
+
+              ---deleteEmployee---
+CREATE or replace PROCEDURE deleteEmployee(ID_in in Employee.ID%TYPE, Surname_in in Employee.Surname%TYPE, Name_in in Employee.Name%TYPE, SecondName_in in Employee.SecondName%TYPE, PhoneNumber_in in Employee.PhoneNumber%TYPE)
+IS
+employee_id int;
+users_id int;
+curr_us_exists exception;
+begin
+employee_id:=ID_in;
+SELECT count(*) into users_id from Employee e inner join Users u on e.ID = u.IDEmployee where e.ID = ID_in;
+   
+if users_id = 0 and employee_id = ID_in then
+  delete from Employee where ID = employee_id;
+else if users_id != 0 and employee_id = ID_in then
+  delete from Users where ID = (SELECT u.ID from Employee e inner join Users u on e.ID = u.IDEmployee where e.ID = ID_in);
+    commit;
+  delete from Employee where ID = employee_id;
+    commit;
+else
+  raise curr_us_exists;
+end if;
+end if;
+exception
+    when curr_us_exists then
+        raise_application_error(-20002, 'Такого сотрудника нет');     
+commit;
+end deleteEmployee;
+
+            ---updateEmployee---
+CREATE or replace PROCEDURE updateEmployee(ID_in in Employee.ID%TYPE ,Surname_in in Employee.Surname%TYPE, Name_in in Employee.Name%TYPE, SecondName_in in Employee.SecondName%TYPE, Birthday_in in Employee.Birthday%TYPE, DateOfEnrollment_in in Employee.DateOfEnrollment%TYPE, Post_in in Post.PositionName%TYPE,
+PhoneNumber_in in Employee.PhoneNumber%TYPE, Salary_in in Employee.Salary%TYPE)
+IS
+employee_id int;
+post_id int;
+curr_emp_exists exception;
+curr_us_exists exception;
+begin
+select Id into post_id from Post where PositionName = Post_in;
+SELECT e.ID into employee_id from Employee e where e.ID = ID_in;
+
+if employee_id is null
+  then raise curr_emp_exists;
+else
+  update Employee set Name = Name_in, SecondName = SecondName_in, Surname = Surname_in, Birthday = Birthday_in, dateOfEnrollment = DateOfEnrollment_in, IDPost = post_id, PhoneNumber = PhoneNumber_in, Salary = Salary_in where ID = employee_id;
+  commit;
+end if;
+exception
+    when curr_emp_exists then
+        raise_application_error(-20002, 'Такого сотрудника нет');
+    when curr_us_exists then
+        raise_application_error(-20002, 'Такой учетной записи нет');     
+commit;
+end updateEmployee;
+
+            ---updateSeance--
+CREATE or replace PROCEDURE updateSeance(ID_in in Seance.ID%TYPE, Date_in in Seance.DateSeance%TYPE, Time_in in Seance.TimeSeance%TYPE, Hall_in in Hall.Name%TYPE,Film_in in Film.Name%TYPE)
+IS
+seance_exist int;
+seance_id int;
+hall_id int;
+film_id int;
+curr_seance_exists exception;
+
+begin
+select Id into seance_id from Seance where ID = ID_in;
+select Id into hall_id from Hall where Name = hall_in;
+select Id into film_id from Film where Name = film_in;
+
+SELECT COUNT(*) into seance_exist from Seance s where s.DateSeance = Date_in and s.Timeseance = Time_in and s.IDHall = hall_id;
+if seance_exist != 0 
+  then raise curr_seance_exists;
+else
+  update Seance set DateSeance = Date_in, Timeseance = Time_in, IDHall = hall_id, IDFilm = film_id where ID = ID_in;
+  commit;
+end if;
+exception
+    when curr_seance_exists then
+        raise_application_error(-20002, 'Такой сеанс уже существует!');   
+commit;
+end updateSeance;
+
+                ---deleteSeance---
+CREATE or replace PROCEDURE deleteSeance(Date_in in Seance.DateSeance%TYPE, Time_in in Seance.TimeSeance%TYPE, Hall_in in Hall.Name%TYPE,Film_in in Film.Name%TYPE)
+is
+hall_id int;
+film_id int;
+seance_exist int;
+curr_seance_exists exception;
+begin
+  begin
+  select Id into hall_id from Hall where name = hall_in;
+  select Id into film_id from Film where name = film_in;
+  end;    
+        
+SELECT COUNT(*) into seance_exist from Seance s where s.DateSeance = Date_in and s.Timeseance = Time_in and s.IDHall = hall_id and s.IDFilm = film_id;
+if seance_exist != 0 then
+  delete from Seance s where s.DateSeance = Date_in and s.TimeSeance = Time_in and s.IDHall = hall_id and s.IDFilm = film_id;
+  commit;
+else 
+   raise curr_seance_exists;  
+end if;
+exception
+    when curr_seance_exists then
+        raise_application_error(-20002, 'Такого сеанса не существует!');
+commit;
+end deleteSeance;
+
+            ---deleteFilm---
+CREATE or replace PROCEDURE deleteFilm(ID_in in Film.ID%TYPE, Name_in in Film.Name%TYPE, Genre_in in Genre.Name%TYPE, Year_in in Film.Year%TYPE)
+is
+genre_id int;
+film_exist int;
+curr_film_exists exception;
+begin
+  begin
+  select Id into genre_id from Genre where name = Genre_in;
+  end;    
+        
+SELECT COUNT(*) into film_exist from Film f where f.Name = Name_in and f.IDGenre = genre_id and f.Year = Year_in;
+if film_exist != 0 then
+  delete from Film f where f.Name = Name_in and f.IDGenre = genre_id and f.Year = Year_in;
+  commit;
+else
+   raise curr_film_exists;  
+end if;
+exception
+    when curr_film_exists then
+        raise_application_error(-20002, 'Такого фильма не существует!');
+commit;
+end deleteFilm;
+        
+            ---getTicketInfo---
+CREATE or replace PROCEDURE getTicketInfo(us_cur out sys_refcursor) 
+IS 
+begin 
+open us_cur for select * from TicketInfo order by TicketNumber; 
+end getTicketInfo;
+
+          ---getFilmWithParameter---
+CREATE or replace PROCEDURE getFilmWithDate(Date_in in Seance.DateSeance%TYPE, us_cur out sys_refcursor) 
+IS 
+begin 
+    open us_cur for select Name from Film where ID in (select IDFilm from Seance where DateSeance = to_date(Date_in,'DD.MM.YY')); 
+end getFilmWithDate;
+
+CREATE or replace PROCEDURE getFilmWithTime(Date_in in Seance.DateSeance%TYPE, Time_in in Seance.TimeSeance%TYPE, us_cur out sys_refcursor) 
+IS 
+begin 
+    open us_cur for select Name from Film where ID in (select IDFilm from Seance where DateSeance = to_date(Date_in,'DD.MM.YY') and TimeSeance = Time_in); 
+end getFilmWithTime;
+
+CREATE or replace PROCEDURE getFilmWithHall(Date_in in Seance.DateSeance%TYPE, Time_in in Seance.TimeSeance%TYPE, Hall_in in Hall.Name%TYPE, us_cur out sys_refcursor) 
+IS 
+hall_id int;
+begin 
+    select ID into hall_id from Hall where Name = Hall_in;
+    open us_cur for select Name from Film where ID in (select IDFilm from Seance where DateSeance = to_date(Date_in,'DD.MM.YY') and TimeSeance = Time_in and IDHall = hall_id); 
+end getFilmWithHall;
+
+      ---getPlaces---
+CREATE or replace PROCEDURE getRaws(Hall_in in Hall.Name%TYPE, us_cur out sys_refcursor) 
+IS 
+hall_id int;
+begin 
+    select ID into hall_id from Hall where Name = Hall_in;
+    open us_cur for select distinct RowNumber from Place where IDHall = hall_id  order by ROWNUMBER; 
+end getRaws;
+
+CREATE or replace PROCEDURE getPlace(Hall_in in Hall.Name%TYPE, Row_in in Place.RowNumber%TYPE, us_cur out sys_refcursor) 
+IS 
+hall_id int;
+begin 
+    select ID into hall_id from Hall where Name = Hall_in;
+    open us_cur for select Place from Place where IDHall = hall_id and RowNumber = Row_in and status = 'Свободно' order by Place; 
+end getPlace;
+
+            ---SHEDULER---
+
+create or replace procedure deleteFilmSheduler
+is
+begin
+delete from Seance s where IDFilm in (select ID from Film where EndRelease < trunc(sysdate));
+commit;
+delete from Film where ID in (select ID from Film where EndRelease < trunc(sysdate));
+commit;
+end deleteFilmSheduler;
+
+begin
+dbms_scheduler.create_schedule(
+schedule_name =>'Delete_film',
+start_date =>CURRENT_TIMESTAMP,
+repeat_interval => 'FREQ=MINUTELY;INTERVAL=1'
+);
+end;
+
+begin
+dbms_scheduler.create_program(
+program_name => 'Delete_film_progarm',
+program_type => 'STORED_PROCEDURE',
+program_action => 'deleteFilmSheduler',
+number_of_arguments => 0,
+enabled => true
+);
+end;
+
+begin
+dbms_scheduler.create_job(
+job_name => 'Delete_film_job',
+program_name => 'Delete_film_progarm',
+schedule_name =>'Delete_film',
+enabled => true
+);
+end;
+
+exec dbms_Scheduler.run_job('Delete_film_job');
+
+select * from user_scheduler_jobs;
+commit;
+update Film set EndRelease = to_date('03.05.21','DD.MM.YY') where ID = 6;
+Select * from Film where EndRelease = to_date('03.05.21','DD.MM.YY');
+
+          ---sellTicket---
+CREATE or replace PROCEDURE sellTicket(Date_in in Seance.DateSeance%TYPE, Time_in in Seance.TimeSeance%TYPE, Hall_in in Hall.Name%TYPE,Film_in in Film.Name%TYPE, Row_in in Place.RowNumber%TYPE, Place_in in Place.Place%TYPE, Employee_in in Ticket.IDEmployee%TYPE)
+is
+seance_id int;
+place_id int;
+employee_id int;
+hall_id int;
+film_id int;
+typePlace_id int;
+ticket_exist int;
+costTicket int;
+curr_ticket_exists exception;
+begin
+  begin
+  employee_id := Employee_in;
+  select Id into hall_id from Hall where name = hall_in;
+  select Id into film_id from Film where Name = film_in;
+  select Id into seance_id from Seance where IDFilm = film_id and DateSeance = Date_in and TimeSeance = Time_in and IDHall = hall_id;
+  select p.Id into place_id from Place p inner join Seance s on p.IDHall = s.IDHall where p.IDHall = hall_id and p.RowNumber = Row_in and p.Place = Place_in and  s.IDFilm = film_id and s.DateSeance = Date_in and s.TimeSeance = Time_in;
+  select tp.Id into typePlace_id from TypePlace tp inner join Place p on tp.ID = p.IDTypePlace where p.ID = place_id;
+  select tp.Cost into costTicket from TypePlace tp where tp.ID = typePlace_id;
+end;       
+SELECT COUNT(*) into ticket_exist from TicketInfo where DateSeance = Date_in and TimeSeance = Time_in and Hall = Hall_in and FilmName = Film_in and RawNumber = Row_in and Place = Place_in;
+if ticket_exist != 0 
+  then raise curr_ticket_exists;
+else 
+  insert into Ticket(Cost,IDSeance, IDPlace, IDEmployee) values
+          (costTicket,seance_id,place_id, employee_id);
+  commit;
+  update Place set status = 'Занято' where ID = place_id;
+  commit;
+end if;
+exception
+    when curr_ticket_exists then
+        raise_application_error(-20002, 'Билет уже продан!');
+commit;
+end sellTicket; 
+
+                  --deleteTicket---
+CREATE or replace PROCEDURE deleteTicket(Number_in in Ticket.TicketNumber%TYPE, Date_in in Seance.DateSeance%TYPE, Time_in in Seance.TimeSeance%TYPE, Hall_in in Hall.Name%TYPE,Film_in in Film.Name%TYPE, Row_in in Place.RowNumber%TYPE, Place_in in Place.Place%TYPE)
+IS
+ticket_id int;
+place_id int;
+film_id int;
+hall_id int;
+curr_ticket_exists exception;
+begin
+SELECT ID into ticket_id from Ticket where TicketNumber = Number_in;
+SELECT ID into hall_id from Hall where Name = Hall_in;
+SELECT ID into film_id from Film where Name = Film_in;
+select p.Id into place_id from Place p inner join Seance s on p.IDHall = s.IDHall where p.IDHall = hall_id and p.RowNumber = Row_in and p.Place = Place_in and  s.IDFilm = film_id and s.DateSeance = Date_in and s.TimeSeance = Time_in;
+if ticket_id is null or place_id is null
+   then raise curr_ticket_exists;
+else 
+  delete from Ticket where ID = ticket_id;
+  commit;
+  update Place set status = 'Свободно' where Id = place_id;
+  commit;
+end if;
+exception
+    when curr_ticket_exists then
+        raise_application_error(-20002, 'Билет не может быть отменен!');      
+commit;
+end deleteTicket;
+
+------------------------------------------------------------
+                        ---XML---
+                        
+CREATE OR REPLACE DIRECTORY UTLDATA AS 'C:/XML'; 
+DROP DIRECTORY UTLDATA; 
+
+CREATE OR REPLACE PACKAGE XML_PACKAGE IS 
+PROCEDURE EXPORT_POST_TO_XML; 
+PROCEDURE IMPORT_POST_FROM_XML; 
+END XML_PACKAGE; 
+
+CREATE OR REPLACE PACKAGE BODY XML_PACKAGE 
+IS
+PROCEDURE EXPORT_POST_TO_XML 
+IS 
+DOC DBMS_XMLDOM.DOMDocument; 
+XDATA XMLTYPE; 
+CURSOR XMLCUR IS 
+SELECT XMLELEMENT("POST", 
+XMLAttributes('http://www.w3.org/2001/XMLSchema' AS "xmlns:xsi", 
+'http://www.oracle.com/Post.xsd' AS "xsi:nonamespaceSchemaLocation"), 
+XMLAGG(XMLELEMENT("POST", 
+XMLELEMENT("ID",PT.ID), 
+XMLELEMENT("POSITIONNAME",PT.POSITIONNAME), 
+XMLELEMENT("ACCESSLEVEL",PT.ACCESSLEVEL)
+)) 
+) FROM POST PT; 
+BEGIN 
+OPEN XMLCUR; 
+LOOP 
+FETCH XMLCUR INTO XDATA; 
+EXIT WHEN XMLCUR%NOTFOUND; 
+END LOOP; 
+CLOSE XMLCUR; 
+DOC := DBMS_XMLDOM.NewDOMDocument(XDATA); 
+DBMS_XMLDOM.WRITETOFILE(DOC, 'UTLDATA/post.xml'); 
+END EXPORT_POST_TO_XML; 
+
+PROCEDURE IMPORT_POST_FROM_XML 
+IS 
+L_CLOB CLOB; 
+L_BFILE BFILE := BFILENAME('UTLDATA', 'post.xml'); 
+
+L_DEST_OFFSET INTEGER := 1; 
+L_SRC_OFFSET INTEGER := 1; 
+L_BFILE_CSID NUMBER := 0; 
+L_LANG_CONTEXT INTEGER := 0; 
+L_WARNING INTEGER := 0; 
+
+P DBMS_XMLPARSER.PARSER; 
+V_DOC DBMS_XMLDOM.DOMDOCUMENT; 
+V_ROOT_ELEMENT DBMS_XMLDOM.DOMELEMENT; 
+V_CHILD_NODES DBMS_XMLDOM.DOMNODELIST; 
+V_CURRENT_NODE DBMS_XMLDOM.DOMNODE; 
+
+PT POST%ROWTYPE; 
+BEGIN 
+DBMS_LOB.CREATETEMPORARY (L_CLOB, TRUE); 
+DBMS_LOB.FILEOPEN(L_BFILE, DBMS_LOB.FILE_READONLY); 
+
+DBMS_LOB.LOADCLOBFROMFILE (DEST_LOB => L_CLOB, SRC_BFILE => L_BFILE, AMOUNT => DBMS_LOB.LOBMAXSIZE, 
+DEST_OFFSET => L_DEST_OFFSET, SRC_OFFSET => L_SRC_OFFSET, BFILE_CSID => L_BFILE_CSID, 
+LANG_CONTEXT => L_LANG_CONTEXT, WARNING => L_WARNING); 
+DBMS_LOB.FILECLOSE(L_BFILE); 
+COMMIT; 
+
+P := DBMS_XMLPARSER.NEWPARSER;
+DBMS_XMLPARSER.PARSECLOB(P,L_CLOB);
+V_DOC := DBMS_XMLPARSER.GETDOCUMENT(P); 
+V_ROOT_ELEMENT := DBMS_XMLDOM.Getdocumentelement(v_Doc); 
+V_CHILD_NODES := DBMS_XMLDOM.GETCHILDRENBYTAGNAME(V_ROOT_ELEMENT,'*'); 
+
+FOR i IN 0 .. DBMS_XMLDOM.GETLENGTH(V_CHILD_NODES) - 1 
+LOOP 
+V_CURRENT_NODE := DBMS_XMLDOM.ITEM(V_CHILD_NODES,i); 
+DBMS_XSLPROCESSOR.VALUEOF(V_CURRENT_NODE, 
+'ID/text()',PT.ID); 
+DBMS_XSLPROCESSOR.VALUEOF(V_CURRENT_NODE, 
+'POSITIONNAME/text()',PT.POSITIONNAME); 
+DBMS_XSLPROCESSOR.VALUEOF(V_CURRENT_NODE, 
+'ACCESSLEVEL/text()',PT.ACCESSLEVEL); 
+
+BEGIN 
+DBMS_OUTPUT.PUT_LINE('ID: '||PT.ID); 
+DBMS_OUTPUT.PUT_LINE('POSITIONNAME: '||PT.POSITIONNAME); 
+DBMS_OUTPUT.PUT_LINE('ACCESSLEVEL: '||PT.ACCESSLEVEL); 
+DBMS_OUTPUT.PUT_LINE(''); 
+END; 
+
+END LOOP; 
+
+DBMS_LOB.FREETEMPORARY(L_CLOB); 
+DBMS_XMLPARSER.FREEPARSER(P); 
+DBMS_XMLDOM.FREEDOCUMENT(V_DOC); 
+COMMIT; 
+EXCEPTION 
+WHEN OTHERS THEN 
+DBMS_LOB.FREETEMPORARY(L_CLOB); 
+DBMS_XMLPARSER.FREEPARSER(P); 
+DBMS_XMLDOM.FREEDOCUMENT(V_DOC); 
+RAISE_APPLICATION_ERROR(-20101, 'IMPORT XML ERROR'|| SQLERRM); 
+END IMPORT_POST_FROM_XML; 
+
+END XML_PACKAGE; 
+
+begin 
+XML_PACKAGE.EXPORT_POST_TO_XML(); 
+XML_PACKAGE.IMPORT_POST_FROM_XML(); 
+end;
+
+------------------------------------------------------
+                ---100 000---
+drop table BigTable;
+drop index str_index;
+
+create table BigTable
+(
+  str numeric,
+  str1 numeric,
+  str2 numeric
+);
+
+begin
+  for cur_val in 1..100000
+    loop
+       insert into BigTable(str,str1,str2) values (cur_val,cur_val*2,cur_val*5);         
+    end loop;
+end;
+
+select * from BigTable where str between 50000 and 72000;
+
+create index str_index on BigTable(str);
+
+explain plan for select * from BigTable where str between 50000 and 72000;
+select * from table(dbms_xplan.display)
+
+
+------------------------Users-------------------------------
+
+create user meneger identified by meneger123
+
+grant create session to meneger;
+grant execute on GETFILMINFO to meneger;
+grant execute on GETFILMWITHDATE to meneger;
+grant execute on GETFILMWITHHALL to meneger;
+grant execute on GETFILMWITHPARAMETER to meneger;
+grant execute on GETFILMWITHTIME to meneger;
+grant execute on GETGENRELIST to meneger;
+grant execute on GETHALLLIST to meneger;
+grant execute on GETPLACE to meneger;
+grant execute on GETPOSTLIST to meneger;
+grant execute on GETRAWS to meneger;
+grant execute on GETSEANCELIST to meneger;
+grant execute on SELLTICKET to meneger;
+grant execute on GETTICKETINFO to meneger;
+grant execute on DELETETICKET to meneger;
+
