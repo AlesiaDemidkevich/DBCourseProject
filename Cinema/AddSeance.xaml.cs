@@ -26,9 +26,11 @@ namespace Cinema
         BindingList<string> HallNameList;
         BindingList<string> FilmNameList;
         BindingList<string> SeanceTimeList;
-        public AddSeance(BindingList<string> nameHallList, BindingList<string> nameFilmList, BindingList<string> seanceTimeList)
+        BindingList<Film> AllFilmList;
+        public AddSeance(BindingList<string> nameHallList, BindingList<string> nameFilmList, BindingList<string> seanceTimeList, BindingList<Film> allFilmList)
         {
             InitializeComponent();
+            AllFilmList = allFilmList;
             HallNameList = nameHallList;
             seanceHall.ItemsSource = HallNameList;
             FilmNameList = nameFilmList;
@@ -36,6 +38,7 @@ namespace Cinema
             SeanceTimeList = seanceTimeList;
             seanceTime.ItemsSource = SeanceTimeList;
             seanceDate.DisplayDateStart = DateTime.Now;
+            
         }
 
         private void seanceAddButton_Click(object sender, RoutedEventArgs e)
@@ -109,5 +112,6 @@ namespace Cinema
                 MessageBox.Show(ex.Message);
             }
         }
+
     }
 }

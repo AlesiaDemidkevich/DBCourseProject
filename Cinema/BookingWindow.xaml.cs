@@ -848,32 +848,45 @@ namespace Cinema
                 Bitmap printscreen = new Bitmap(414, 463);
                 Graphics graphics = Graphics.FromImage(printscreen as Image);
                 graphics.CopyFromScreen(1070, 302, 0, 0, printscreen.Size);
-                printscreen.Save("D:\\Alesya\\3course\\2sem\\БД\\Курсовая работа\\Screen\\screen.jpeg",System.Drawing.Imaging.ImageFormat.Jpeg);
+                printscreen.Save("D:\\Alesya\\3course\\2sem\\БД\\Курсовая работа\\Screen\\screen.png",System.Drawing.Imaging.ImageFormat.Png);
                 using (MailMessage mess = new MailMessage())
                 {
                     SmtpClient client = new SmtpClient("smtp.mail.ru", Convert.ToInt32(587))
                     {
-                        Credentials = new NetworkCredential("demidkevich_belstu@mail.ru", "belstu_password"),
+                        Credentials = new NetworkCredential("alesya.demidkevich@mail.ru", "nevergiveup-98765"),
                         EnableSsl = true,
                         DeliveryMethod = SmtpDeliveryMethod.Network
                     };
-                    mess.From = new MailAddress("demidkevich_belstu@mail.ru");
-                    mess.To.Add(new MailAddress("demidkevich.belstu@gmail.com"));
+                    mess.From = new MailAddress("alesya.demidkevich@mail.ru");
+                    mess.To.Add(new MailAddress("alesia.demidkevich@gmail.com"));
                     mess.Subject = "Cinema";
-                    mess.SubjectEncoding = Encoding.UTF8;
                     mess.IsBodyHtml = true;
-                    mess.Body = $"<html><head></head><body><p><img src='D:\\Alesya\\3course\\2sem\\БД\\Курсовая работа\\Screen\\screen.jpeg' height='500px' width='500px' alt='' /></p></body>";
+                    mess.SubjectEncoding = Encoding.UTF8;
+                    mess.Body = $"<html><head></head><body><p>Билет на сеанс</br></p></body>";
 
-                    //try
-                    //{
-                    //    mess.Attachments.Add(new Attachment());
-                    //}
-                    //catch { }
+                    try
+                    {
+                        mess.Attachments.Add(new Attachment("D:\\Alesya\\3course\\2sem\\БД\\Курсовая работа\\Screen\\screen.png"));
+                    }
+                    catch { }
 
                     client.Send(mess);
                     mess.Dispose();
                     client.Dispose();
                     MessageBox.Show("Отправлено");
+
+                    ticketNumberEnter.Content = "";
+                    ticketCostEnter.Content = "";
+                    ticketDateEnter.Content = "";
+                    ticketTimeEnter.Content = "";
+                    ticketHallEnter.Content = "";
+                    ticketRawEnter.Content = "";
+                    ticketPlaceEnter.Content = "";
+                    ticketTypeEnter.Content = "";
+                    ticketFilmEnter.Content = "";
+                    ticketDurationEnter.Content = ""; 
+                    ticketLimitEnter.Content = "";
+                    ticketEmployeeEnter.Content = "";
 
                 }
             }

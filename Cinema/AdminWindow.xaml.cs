@@ -103,7 +103,7 @@ namespace Cinema.Admin
         private void updateSeanceList_Click(object sender, RoutedEventArgs e)
         {
             GetHall();
-            AddSeance addSeance = new AddSeance(HallNameList, FilmNameList, SeanceTimeList);
+            AddSeance addSeance = new AddSeance(HallNameList, FilmNameList, SeanceTimeList,allFilmList);
             addSeance.Owner = this;
             addSeance.Show();
         }
